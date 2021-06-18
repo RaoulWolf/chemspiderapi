@@ -10,7 +10,7 @@ output: github_document
 [![CodeCov test coverage](https://codecov.io/gh/NIVANorge/chemspiderapi/branch/master/graph/badge.svg)](https://codecov.io/gh/NIVANorge/chemspiderapi?branch=master)
 <!-- badges: end -->
 
-*As of 1 June 2021 this is the new official repository of {chemspiderapi}. The old repository is orphaned.*
+*As of 18 June 2021 this is the new official repository of {chemspiderapi}. The old repository is orphaned.*
 
 > R functionalities for ChemSpider's API services
 
@@ -161,7 +161,7 @@ As of `r Sys.Date()`, the following five vignettes are available:
 
 ## Funding
 
-This package was created at the [Norwegian Institute for Water Research (NIVA)](https://www.niva.no/en) in conjunction with [NIVA's Computational Toxicology Program (NCTP)](https://www.niva.no/en/projectweb/nctp) at NIVA's [Section for Ecotoxicology and Risk Assessment](https://www.niva.no/en/research/ecotoxicology_and_risk_assessment) and funded by [The Research Council of Norway (RCN)](https://www.forskningsradet.no/en/), project 268294: [Cumulative Hazard and Risk Assessment of Complex Mixtures and Multiple Stressors (MixRisk)](https://www.forskningsradet.no/prosjektbanken/#/project/NFR/268294/Sprak=en).
+This package was originally created at the [Norwegian Institute for Water Research (NIVA)](https://www.niva.no/en) at NIVA's [Section for Ecotoxicology and Risk Assessment](https://www.niva.no/en/research/ecotoxicology_and_risk_assessment) and funded by [The Research Council of Norway (RCN)](https://www.forskningsradet.no/en/), project 268294: [Cumulative Hazard and Risk Assessment of Complex Mixtures and Multiple Stressors (MixRisk)](https://www.forskningsradet.no/prosjektbanken/#/project/NFR/268294/Sprak=en).
 
 ## License
 
