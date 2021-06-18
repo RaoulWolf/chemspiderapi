@@ -17,27 +17,56 @@
 #' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
 #' @importFrom jsonlite fromJSON toJSON
 #' @export
-post_inchikey <- function(inchikey, apikey, coerce = FALSE, simplify = FALSE) {
+post_inchikey <- function(
+  inchikey, 
+  apikey, 
+  coerce = FALSE, 
+  simplify = FALSE
+  ) {
   
   .check_inchikey(inchikey)
   
   .check_apikey(apikey)
 
-  data <- list("inchikey" = inchikey)
-  data <- jsonlite::toJSON(data, auto_unbox = TRUE)
+  .check_coerce(coerce)
+  
+  .check_simplify(simplify)
+  
+  data <- list(
+    "inchikey" = inchikey
+    )
+  data <- jsonlite::toJSON(
+    x = data, 
+    auto_unbox = TRUE
+    )
 
-  header <- list("Content-Type" = "", "apikey" = apikey)
+  header <- list(
+    "Content-Type" = "", 
+    "apikey" = apikey
+    )
 
-  url <- Sys.getenv("POST_INCHIKEY_URL", 
-                    "https://api.rsc.org/compounds/v1/filter/inchikey")
+  url <- Sys.getenv(
+    "POST_INCHIKEY_URL",
+    unset = "https://api.rsc.org/compounds/v1/filter/inchikey"
+    )
   
   handle <- curl::new_handle()
 
-  curl::handle_setopt(handle, customrequest = "POST", postfields = data)
+  curl::handle_setopt(
+    handle = handle, 
+    customrequest = "POST", 
+    postfields = data
+    )
 
-  curl::handle_setheaders(handle, .list = header)
+  curl::handle_setheaders(
+    handle = handle, 
+    .list = header
+    )
 
-  raw_result <- curl::curl_fetch_memory(url = url, handle = handle)
+  raw_result <- curl::curl_fetch_memory(
+    url = url, 
+    handle = handle
+    )
 
   .check_status_code(raw_result$status_code)
   
@@ -45,11 +74,17 @@ post_inchikey <- function(inchikey, apikey, coerce = FALSE, simplify = FALSE) {
   result <- jsonlite::fromJSON(result)
   
   if (coerce) {
-    result <- as.data.frame(result, stringsAsFactors = FALSE)
+    result <- as.data.frame(
+      result, 
+      stringsAsFactors = FALSE
+      )
   }
   
   if (simplify) {
-    result <- unlist(result, use.names = FALSE)
+    result <- unlist(
+      result, 
+      use.names = FALSE
+      )
   }
   
   result

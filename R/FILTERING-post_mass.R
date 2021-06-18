@@ -11,9 +11,9 @@
 #' Valid values for \code{orderDirection} are \code{ascending}, \code{descending}."}
 #' @param mass A (double) number corresponding to the atomic mass (Da or g/mol) you are inquiring. Has to be within the range of [1,11000].
 #' @param range The range for the above mass, also as (double) number. Has to be within the range of [0.0001,100].
-#' @param dataSources Optional: A character vector specifying which data source to use. Use \code{chemspiderapi::get_datasources()} for a complete list of data sources. If none are specified (the default), will search all data sources, which can take substantially longer time to complete.
-#' @param orderBy A character vector indicating by which parameter to order. Defaults to \code{recordId}; see Details for options.
-#' @param orderDirection A character vector indicating in which direction to order; either \code{ascending} (default) or \code{descending}.
+#' @param data_sources Optional: A character vector specifying which data source to use. Use \code{chemspiderapi::get_datasources()} for a complete list of data sources. If none are specified (the default), will search all data sources, which can take substantially longer time to complete.
+#' @param order_by A character vector indicating by which parameter to order. Defaults to \code{recordId}; see Details for options.
+#' @param order_direction A character vector indicating in which direction to order; either \code{ascending} (default) or \code{descending}.
 #' @param apikey A 32-character string with a valid key for ChemSpider's API services.
 #' @param coerce \code{logical}: should the list be coerced to a data.frame? Defaults to \code{FALSE}.
 #' @param simplify \code{logical}: should the results be simplified to a vector? Defaults to \code{FALSE}.
@@ -30,19 +30,28 @@
 #' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
 #' @importFrom jsonlite fromJSON toJSON
 #' @export
-post_mass <- function(mass, 
-                      range, 
-                      dataSources = NULL, 
-                      orderBy = "recordId", 
-                      orderDirection = "ascending", 
-                      apikey,
-                      coerce = FALSE, simplify = FALSE) {
+post_mass <- function(
+  mass, 
+  range, 
+  data_sources = NULL, 
+  order_by = "recordId", 
+  order_direction = "ascending", 
+  apikey,
+  coerce = FALSE, 
+  simplify = FALSE
+  ) {
   
-  .check_mass_and_range(mass, range)
+  .check_mass_and_range(
+    mass, 
+    range
+    )
   
-  .check_dataSources(dataSources)
+  .check_data_sources(data_sources)
   
-  .check_order(orderBy, orderDirection)
+  .check_order(
+    order_by, 
+    order_direction
+    )
   
   .check_apikey(apikey)
   
@@ -50,36 +59,58 @@ post_mass <- function(mass,
   
   .check_simplify(simplify)
   
-  if (!is.null(dataSources)) {
-    if (length(dataSources) == 1L) {
-      dataSources <- I(dataSources)
+  if (!is.null(data_sources)) {
+    if (length(data_sources) == 1L) {
+      data_sources <- I(data_sources)
     } 
-    data <- list("mass" = mass, 
-                 "range" = range, 
-                 "dataSources" = dataSources, 
-                 "orderBy" = orderBy, 
-                 "orderDirection" = orderDirection)
+    data <- list(
+      "mass" = mass, 
+      "range" = range, 
+      "dataSources" = data_sources, 
+      "orderBy" = order_by, 
+      "orderDirection" = order_direction
+      )
   } else {
-    data <- list("mass" = mass, 
-                 "range" = range, 
-                 "orderBy" = orderBy, 
-                 "orderDirection" = orderDirection)
+    data <- list(
+      "mass" = mass, 
+      "range" = range, 
+      "orderBy" = order_by, 
+      "orderDirection" = order_direction
+      )
   }
   
-  data <- jsonlite::toJSON(data, auto_unbox = TRUE)
+  data <- jsonlite::toJSON(
+    data, 
+    auto_unbox = TRUE
+    )
   
-  header <- list("Content-Type" = "", "apikey" = apikey)
+  header <- list(
+    "Content-Type" = "", 
+    "apikey" = apikey
+    )
   
-  url <- Sys.getenv("POST_MASS_URL", 
-                    "https://api.rsc.org/compounds/v1/filter/mass")
+  url <- Sys.getenv(
+    "POST_MASS_URL", 
+    unset = "https://api.rsc.org/compounds/v1/filter/mass"
+    )
   
   handle <- curl::new_handle()
   
-  curl::handle_setopt(handle, customrequest = "POST", postfields = data)
+  curl::handle_setopt(
+    handle = handle, 
+    customrequest = "POST", 
+    postfields = data
+    )
   
-  curl::handle_setheaders(handle, .list = header)
+  curl::handle_setheaders(
+    handle = handle, 
+    .list = header
+    )
   
-  raw_result <- curl::curl_fetch_memory(url = url, handle = handle)
+  raw_result <- curl::curl_fetch_memory(
+    url = url, 
+    handle = handle
+    )
   
   .check_status_code(raw_result$status_code)
   
@@ -87,11 +118,17 @@ post_mass <- function(mass,
   result <- jsonlite::fromJSON(result)
   
   if (coerce) {
-    result <- as.data.frame(result, stringsAsFactors = FALSE)
+    result <- as.data.frame(
+      result, 
+      stringsAsFactors = FALSE
+      )
   }
   
   if (simplify) {
-    result <- unlist(result, use.names = FALSE)
+    result <- unlist(
+      result, 
+      use.names = FALSE
+      )
   }
   
   result

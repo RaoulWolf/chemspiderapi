@@ -5,22 +5,19 @@
 \title{Post a batch of ChemSpider record IDs}
 \usage{
 post_batch(
-  recordIds,
+  record_ids,
   fields = "all",
   apikey,
-  id = TRUE,
   simplify_formula = FALSE,
   coerce = FALSE
 )
 }
 \arguments{
-\item{recordIds}{A vector of integer ChemSpider IDs.}
+\item{record_ids}{A vector of integer ChemSpider IDs.}
 
 \item{fields}{A character string indicating which fields to return; see Details.}
 
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
-
-\item{id}{\code{logical}: Should the \code{id} column (i.e., the \code{recordId}) be part of the output? Defaults to \code{TRUE}.}
 
 \item{simplify_formula}{\code{logical}: Should formula strings be simplified? Defaults to \code{FALSE}.}
 

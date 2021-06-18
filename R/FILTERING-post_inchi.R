@@ -16,29 +16,57 @@
 #' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
 #' @importFrom jsonlite fromJSON toJSON
 #' @export
-post_inchi <- function(inchi, apikey, coerce = FALSE, simplify = FALSE) {
+post_inchi <- function(
+  inchi, 
+  apikey, 
+  coerce = FALSE, 
+  simplify = FALSE
+  ) {
   
   .check_inchi(inchi)
   
   .check_apikey(apikey)
   
-  data <- list("inchi" = inchi)
-  data <- jsonlite::toJSON(data, auto_unbox = TRUE)
+  .check_coerce(coerce)
   
-  header <- list("Content-Type" = "", "apikey" = apikey)
+  .check_simplify(simplify)
   
-  url <- "https://api.rsc.org/compounds/v1/filter/inchi"
+  data <- list(
+    "inchi" = inchi
+    )
   
-  url <- Sys.getenv("POST_INCHI_URL", 
-                    "https://api.rsc.org/compounds/v1/filter/inchi")
+  data <- jsonlite::toJSON(
+    x = data, 
+    auto_unbox = TRUE
+    )
+  
+  header <- list(
+    "Content-Type" = "", 
+    "apikey" = apikey
+    )
+  
+  url <- Sys.getenv(
+    "POST_INCHI_URL",
+    unset = "https://api.rsc.org/compounds/v1/filter/inchi"
+    )
   
   handle <- curl::new_handle()
   
-  curl::handle_setopt(handle, customrequest = "POST", postfields = data)
+  curl::handle_setopt(
+    handle = handle, 
+    customrequest = "POST", 
+    postfields = data
+    )
   
-  curl::handle_setheaders(handle, .list = header)
+  curl::handle_setheaders(
+    handle = handle, 
+    .list = header
+    )
   
-  raw_result <- curl::curl_fetch_memory(url = url, handle = handle)
+  raw_result <- curl::curl_fetch_memory(
+    url = url, 
+    handle = handle
+    )
   
   .check_status_code(raw_result$status_code)
   
@@ -46,11 +74,17 @@ post_inchi <- function(inchi, apikey, coerce = FALSE, simplify = FALSE) {
   result <- jsonlite::fromJSON(result)
   
   if (coerce) {
-    result <- as.data.frame(result, stringsAsFactors = FALSE)
+    result <- as.data.frame(
+      result, 
+      stringsAsFactors = FALSE
+      )
   }
   
   if (simplify) {
-    result <- unlist(result, use.names = FALSE)
+    result <- unlist(
+      result, 
+      use.names = FALSE
+      )
   }
   
   result

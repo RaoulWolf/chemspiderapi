@@ -6,8 +6,8 @@
 \usage{
 post_name(
   name,
-  orderBy = "recordId",
-  orderDirection = "ascending",
+  order_by = "recordId",
+  order_direction = "ascending",
   apikey,
   coerce = FALSE,
   simplify = FALSE
@@ -16,9 +16,9 @@ post_name(
 \arguments{
 \item{name}{A character string of the compound name.}
 
-\item{orderBy}{A character string indicating by which parameter the results should be arranged (NOT case sensitive); see Details.}
+\item{order_by}{A character string indicating by which parameter the results should be arranged (NOT case sensitive); see Details.}
 
-\item{orderDirection}{A character string indicating which in which direction the results should be arranged (NOT case sensitive); see Details.}
+\item{order_direction}{A character string indicating which in which direction the results should be arranged (NOT case sensitive); see Details.}
 
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
 

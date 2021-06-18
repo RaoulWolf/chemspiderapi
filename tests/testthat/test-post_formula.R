@@ -29,95 +29,95 @@ test_that("post_formula() fails if a non-character formula is provided.", {
 test_that("post_formula() fails if more than 20 data sources are provided.", {
   expect_error(
     post_formula(formula = "C8H10N4O2", 
-                 dataSources = c("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v"))
+                 data_sources = letters)
   )
 })
 
-test_that("post_formula() fails if more than one orderBy is provided.", {
+test_that("post_formula() fails if more than one order_by is provided.", {
   expect_error(
-    post_formula(formula = "C8H10N4O2", dataSources = NULL,
-                orderBy = c("recordid", "massdefect"), orderDirection = NULL)
+    post_formula(formula = "C8H10N4O2", data_sources = NULL,
+                order_by = c("recordid", "massdefect"), order_direction = NULL)
   )
 })
 
-test_that("post_formula() fails if a false orderBy is provided.", {
+test_that("post_formula() fails if a false order_by is provided.", {
   expect_error(
-    post_formula(formula = "C8H10N4O2", dataSources = NULL,
-                orderBy = "thewrongthing", orderDirection = NULL)
+    post_formula(formula = "C8H10N4O2", data_sources = NULL,
+                order_by = "thewrongthing", order_direction = NULL)
   )
 })
 
-test_that("post_formula() fails if a non-character orderBy is provided.", {
+test_that("post_formula() fails if a non-character order_by is provided.", {
   expect_error(
-    post_formula(formula = "C8H10N4O2", dataSources = NULL,
-                orderBy = 123, orderDirection = NULL)
+    post_formula(formula = "C8H10N4O2", data_sources = NULL,
+                order_by = 123, order_direction = NULL)
   )
 })
 
-test_that("post_formula() fails if more than one orderDirection is provided.", {
+test_that("post_formula() fails if more than one order_direction is provided.", {
   expect_error(
-    post_formula(formula = "C8H10N4O2", dataSources = NULL,
-                orderBy = NULL, orderDirection = c("ascending", "descending"))
+    post_formula(formula = "C8H10N4O2", data_sources = NULL,
+                order_by = NULL, order_direction = c("ascending", "descending"))
   )
 })
 
-test_that("post_formula() fails if a non-character orderDirection is provided.", {
+test_that("post_formula() fails if a non-character order_direction is provided.", {
   expect_error(
-    post_formula(formula = "C8H10N4O2", dataSources = NULL,
-                orderBy = NULL, orderDirection = 123)
+    post_formula(formula = "C8H10N4O2", data_sources = NULL,
+                order_by = NULL, order_direction = 123)
   )
 })
 
-test_that("post_formula() fails if a false orderDirection is provided.", {
+test_that("post_formula() fails if a false order_direction is provided.", {
   expect_error(
-    post_formula(formula = "C8H10N4O2", dataSources = NULL,
-                orderBy = NULL, orderDirection = "thewrongthing")
+    post_formula(formula = "C8H10N4O2", data_sources = NULL,
+                order_by = NULL, order_direction = "thewrongthing")
   )
 })
 
 test_that("post_formula() fails if no API key is provided.", {
   expect_error(
-    post_formula(formula = "C8H10N4O2", dataSources = NULL,
-                 orderBy = "recordId", orderDirection = "ascending")
+    post_formula(formula = "C8H10N4O2", data_sources = NULL,
+                 order_by = "recordId", order_direction = "ascending")
   )
 })
 
 test_that("post_formula() fails if NULL is provided as API key.", {
   expect_error(
-    post_formula(formula = "C8H10N4O2", dataSources = NULL,
-                 orderBy = "recordId", orderDirection = "ascending",
+    post_formula(formula = "C8H10N4O2", data_sources = NULL,
+                 order_by = "recordId", order_direction = "ascending",
                  apikey = NULL)
   )
 })
 
 test_that("post_formula() fails if more than one API key is provided.", {
   expect_error(
-    post_formula(formula = "C8H10N4O2", dataSources = NULL,
-                 orderBy = "recordId", orderDirection = "ascending",
+    post_formula(formula = "C8H10N4O2", data_sources = NULL,
+                 order_by = "recordId", order_direction = "ascending",
                  apikey = c("API key one", "API key two"))
   )
 })
 
 test_that("post_formula() fails if a numeric API key is provided.", {
   expect_error(
-    post_formula(formula = "C8H10N4O2", dataSources = NULL,
-                 orderBy = "recordId", orderDirection = "ascending",
+    post_formula(formula = "C8H10N4O2", data_sources = NULL,
+                 order_by = "recordId", order_direction = "ascending",
                  apikey = 1234567890)
   )
 })
 
 test_that("post_formula() fails if a logical API key is provided.", {
   expect_error(
-    post_formula(formula = "C8H10N4O2", dataSources = NULL,
-                 orderBy = "recordId", orderDirection = "ascending",
+    post_formula(formula = "C8H10N4O2", data_sources = NULL,
+                 order_by = "recordId", order_direction = "ascending",
                  apikey = TRUE)
   )
 })
 
 test_that("post_formula() fails if a non 32-character length API key is provided.", {
   expect_error(
-    post_formula(formula = "C8H10N4O2", dataSources = NULL,
-                 orderBy = "recordId", orderDirection = "ascending",
+    post_formula(formula = "C8H10N4O2", data_sources = NULL,
+                 order_by = "recordId", order_direction = "ascending",
                  apikey = "abcdefghijklmnopqrstuvqxyz")
   )
 })
@@ -136,8 +136,8 @@ Sys.setenv("POST_FORMULA_URL" = web$url())
 
 test_that("post_formula() returns a proper response.", {
   expect_type(
-    post_formula(formula = "C8H10N4O2", dataSources = NULL,
-                 orderBy = "recordId", orderDirection = "ascending",
+    post_formula(formula = "C8H10N4O2", data_sources = NULL,
+                 order_by = "recordId", order_direction = "ascending",
                  apikey = "abcdefghijklmnopqrstuvqxyz123456",
                  coerce = TRUE),
     "list"
@@ -146,8 +146,8 @@ test_that("post_formula() returns a proper response.", {
 
 test_that("post_formula() returns a proper response.", {
   expect_type(
-    post_formula(formula = "C8H10N4O2", dataSources = NULL,
-                 orderBy = "recordId", orderDirection = "ascending",
+    post_formula(formula = "C8H10N4O2", data_sources = NULL,
+                 order_by = "recordId", order_direction = "ascending",
                  apikey = "abcdefghijklmnopqrstuvqxyz123456",
                  simplify = TRUE),
     "character"
@@ -156,8 +156,8 @@ test_that("post_formula() returns a proper response.", {
 
 test_that("post_formula() returns a proper response.", {
   expect_type(
-    post_formula(formula = "C8H10N4O2", dataSources = "PubChem",
-                 orderBy = "recordId", orderDirection = "ascending",
+    post_formula(formula = "C8H10N4O2", data_sources = "PubChem",
+                 order_by = "recordId", order_direction = "ascending",
                  apikey = "abcdefghijklmnopqrstuvqxyz123456",
                  simplify = TRUE),
     "character"

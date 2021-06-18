@@ -6,9 +6,9 @@
 #' \cr
 #' \emph{"If dataSources is not specified, all known sources are searched. This will take longer."}
 #' @param formulas A character vector of up to 100 chemical formulas.
-#' @param dataSources Optional: Either a single character string or a vector of character string specifying the data sources. A list of possible data sources can be obtained from \code{chemspiderapi::get_datasources()}.
-#' @param orderBy A character string indicating by which parameter the results should be ordered; see Details.
-#' @param orderDirection A character string indicating in which direction the results should be ordered; see Details.
+#' @param data_sources Optional: Either a single character string or a vector of character string specifying the data sources. A list of possible data sources can be obtained from \code{chemspiderapi::get_datasources()}.
+#' @param order_by A character string indicating by which parameter the results should be ordered; see Details.
+#' @param order_direction A character string indicating in which direction the results should be ordered; see Details.
 #' @param apikey A 32-character string with a valid key for ChemSpider's API services.
 #' @param coerce \code{logical}: should the list be coerced to a data.frame? Defaults to \code{FALSE}.
 #' @return Returns the queryId string as (named) character vector.
@@ -23,50 +23,78 @@
 #' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
 #' @importFrom jsonlite fromJSON toJSON
 #' @export
-post_formula_batch <- function(formulas, 
-                               dataSources = NULL, 
-                               orderBy = "recordId", 
-                               orderDirection = "ascending", 
-                               apikey, coerce = FALSE) {
+post_formula_batch <- function(
+  formulas, 
+  data_sources = NULL, 
+  order_by = "recordId", 
+  order_direction = "ascending", 
+  apikey, 
+  coerce = FALSE
+  ) {
   
   .check_formulas(formulas)
   
-  .check_dataSources(dataSources)
+  .check_data_sources(data_sources)
   
-  .check_order(orderBy, orderDirection)
+  .check_order(
+    order_by, 
+    order_direction
+    )
   
   .check_apikey(apikey)
   
   .check_coerce(coerce)
   
-  if (!is.null(dataSources)) {
-    if (length(dataSources) == 1L) {
-      dataSources <- I(dataSources)
+  if (!is.null(data_sources)) {
+    if (length(data_sources) == 1L) {
+      data_sources <- I(data_sources)
     } 
-    data <- list("formulas" = formulas, 
-                 "dataSources" = dataSources, 
-                 "orderBy" = orderBy, 
-                 "orderDirection" = orderDirection)
+    data <- list(
+      "formulas" = formulas, 
+      "dataSources" = data_sources, 
+      "orderBy" = order_by, 
+      "orderDirection" = order_direction
+      )
   } else {
-    data <- list("formulas" = formulas, 
-                 "orderBy" = orderBy, 
-                 "orderDirection" = orderDirection)
+    data <- list(
+      "formulas" = formulas, 
+      "orderBy" = order_by, 
+      "orderDirection" = order_direction
+      )
   }
   
-  data <- jsonlite::toJSON(data, auto_unbox = TRUE)
+  data <- jsonlite::toJSON(
+    data, 
+    auto_unbox = TRUE
+    )
   
-  header <- list("Content-Type" = "", "apikey" = apikey)
+  header <- list(
+    "Content-Type" = "", 
+    "apikey" = apikey
+    )
   
-  url <- Sys.getenv("POST_FORMULA_BATCH_URL", 
-                    "https://api.rsc.org/compounds/v1/filter/formula/batch")
+  url <- Sys.getenv(
+    "POST_FORMULA_BATCH_URL", 
+    unset = "https://api.rsc.org/compounds/v1/filter/formula/batch"
+    )
   
   handle <- curl::new_handle()
   
-  curl::handle_setopt(handle, customrequest = "POST", postfields = data)
+  curl::handle_setopt(
+    handle = handle, 
+    customrequest = "POST", 
+    postfields = data
+    )
   
-  curl::handle_setheaders(handle, .list = header)
+  curl::handle_setheaders(
+    handle = handle, 
+    .list = header
+    )
   
-  raw_result <- curl::curl_fetch_memory(url = url, handle = handle)
+  raw_result <- curl::curl_fetch_memory(
+    url = url, 
+    handle = handle
+    )
   
   .check_status_code(raw_result$status_code)
   
@@ -74,7 +102,10 @@ post_formula_batch <- function(formulas,
   result <- jsonlite::fromJSON(result)
   
   if (coerce) {
-    result <- as.data.frame(result, stringsAsFactors = FALSE)
+    result <- as.data.frame(
+      result, 
+      stringsAsFactors = FALSE
+      )
   }
   
   result

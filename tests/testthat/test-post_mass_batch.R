@@ -46,44 +46,44 @@ test_that("post_mass_batch() fails if mass and range do not have the same length
 
 test_that("post_mass_batch() fails if more than 20 data sources are provided.", {
   expect_error(
-    post_mass_batch(mass = c(150, 140, 120), range = c(0.002, 0.001, 0.002), dataSources = c("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v"))
+    post_mass_batch(mass = c(150, 140, 120), range = c(0.002, 0.001, 0.002), data_sources = letters)
   )
 })
 
-test_that("post_mass_batch() fails if more than one orderBy is provided.", {
+test_that("post_mass_batch() fails if more than one order_by is provided.", {
   expect_error(
-    post_mass_batch(mass = c(150, 140, 120), range = c(0.002, 0.001, 0.002), dataSources = NULL, orderBy = c("recordid", "massdefect"), orderDirection = NULL)
+    post_mass_batch(mass = c(150, 140, 120), range = c(0.002, 0.001, 0.002), data_sources = NULL, order_by = c("recordid", "massdefect"), order_direction = NULL)
   )
 })
 
 
-test_that("post_mass_batch() fails if a false orderBy is provided.", {
+test_that("post_mass_batch() fails if a false order_by is provided.", {
   expect_error(
-    post_mass_batch(mass = c(150, 140, 120), range = c(0.002, 0.001, 0.002), dataSources = NULL, orderBy = "thewrongthing", orderDirection = NULL)
+    post_mass_batch(mass = c(150, 140, 120), range = c(0.002, 0.001, 0.002), data_sources = NULL, order_by = "thewrongthing", order_direction = NULL)
   )
 })
 
-test_that("post_mass_batch() fails if a non-character orderBy is provided.", {
+test_that("post_mass_batch() fails if a non-character order_by is provided.", {
   expect_error(
-    post_mass_batch(mass = c(150, 140, 120), range = c(0.002, 0.001, 0.002), dataSources = NULL, orderBy = 123, orderDirection = NULL)
+    post_mass_batch(mass = c(150, 140, 120), range = c(0.002, 0.001, 0.002), data_sources = NULL, order_by = 123, order_direction = NULL)
   )
 })
 
-test_that("post_mass_batch() fails if more than one orderDirection is provided.", {
+test_that("post_mass_batch() fails if more than one order_direction is provided.", {
   expect_error(
-    post_mass_batch(mass = c(150, 140, 120), range = c(0.002, 0.001, 0.002), dataSources = NULL, orderBy = NULL, orderDirection = c("ascending", "descending"))
+    post_mass_batch(mass = c(150, 140, 120), range = c(0.002, 0.001, 0.002), data_sources = NULL, order_by = NULL, order_direction = c("ascending", "descending"))
   )
 })
 
-test_that("post_mass_batch() fails if a non-character orderDirection is provided.", {
+test_that("post_mass_batch() fails if a non-character order_direction is provided.", {
   expect_error(
-    post_mass_batch(mass = c(150, 140, 120), range = c(0.002, 0.001, 0.002), dataSources = NULL, orderBy = NULL, orderDirection = 123)
+    post_mass_batch(mass = c(150, 140, 120), range = c(0.002, 0.001, 0.002), data_sources = NULL, order_by = NULL, order_direction = 123)
   )
 })
 
-test_that("post_mass_batch() fails if a false orderDirection is provided.", {
+test_that("post_mass_batch() fails if a false order_direction is provided.", {
   expect_error(
-    post_mass_batch(mass = c(150, 140, 120), range = c(0.002, 0.001, 0.002), dataSources = NULL, orderBy = NULL, orderDirection = "thewrongthing")
+    post_mass_batch(mass = c(150, 140, 120), range = c(0.002, 0.001, 0.002), data_sources = NULL, order_by = NULL, order_direction = "thewrongthing")
   )
 })
 
@@ -95,37 +95,37 @@ test_that("post_mass_batch() fails if a false orderDirection is provided.", {
 
 test_that("post_mass_batch() fails if no API key is provided.", {
   expect_error(
-    post_mass_batch(mass = c(150, 140, 120), range = c(0.002, 0.001, 0.002), dataSources = NULL, orderBy = "recordId", orderDirection = "descending")
+    post_mass_batch(mass = c(150, 140, 120), range = c(0.002, 0.001, 0.002), data_sources = NULL, order_by = "recordId", order_direction = "descending")
   )
 })
 
 test_that("post_mass_batch() fails if NULL is provided as API key.", {
   expect_error(
-    post_mass_batch(mass = c(150, 140, 120), range = c(0.002, 0.001, 0.002), dataSources = NULL, orderBy = "recordId", orderDirection = "descending", apikey = NULL)
+    post_mass_batch(mass = c(150, 140, 120), range = c(0.002, 0.001, 0.002), data_sources = NULL, order_by = "recordId", order_direction = "descending", apikey = NULL)
   )
 })
 
 test_that("post_mass_batch() fails if more than one API key is provided.", {
   expect_error(
-    post_mass_batch(mass = c(150, 140, 120), range = c(0.002, 0.001, 0.002), dataSources = NULL, orderBy = "recordId", orderDirection = "descending", apikey = c("API key one", "API key two"))
+    post_mass_batch(mass = c(150, 140, 120), range = c(0.002, 0.001, 0.002), data_sources = NULL, order_by = "recordId", order_direction = "descending", apikey = c("API key one", "API key two"))
   )
 })
 
 test_that("post_mass_batch() fails if a numeric API key is provided.", {
   expect_error(
-    post_mass_batch(mass = c(150, 140, 120), range = c(0.002, 0.001, 0.002), dataSources = NULL, orderBy = "recordId", orderDirection = "descending", apikey = 1234567890)
+    post_mass_batch(mass = c(150, 140, 120), range = c(0.002, 0.001, 0.002), data_sources = NULL, order_by = "recordId", order_direction = "descending", apikey = 1234567890)
   )
 })
 
 test_that("post_mass_batch() fails if a logical API key is provided.", {
   expect_error(
-    post_mass_batch(mass = c(150, 140, 120), range = c(0.002, 0.001, 0.002), dataSources = NULL, orderBy = "recordId", orderDirection = "descending", apikey = TRUE)
+    post_mass_batch(mass = c(150, 140, 120), range = c(0.002, 0.001, 0.002), data_sources = NULL, order_by = "recordId", order_direction = "descending", apikey = TRUE)
   )
 })
 
 test_that("post_mass_batch() fails if a non 32-character length API key is provided.", {
   expect_error(
-    post_mass_batch(mass = c(150, 140, 120), range = c(0.002, 0.001, 0.002), dataSources = NULL, orderBy = "recordId", orderDirection = "descending", apikey = "abcdefghijklmnopqrstuvqxyz")
+    post_mass_batch(mass = c(150, 140, 120), range = c(0.002, 0.001, 0.002), data_sources = NULL, order_by = "recordId", order_direction = "descending", apikey = "abcdefghijklmnopqrstuvqxyz")
   )
 })
 
@@ -169,7 +169,7 @@ test_that("post_mass_batch() returns a proper response.", {
   expect_type(
     post_mass_batch(mass = c(150, 140, 120), 
                     range = c(0.002, 0.001, 0.002),
-                    dataSources = "PubMed",
+                    data_sources = "PubMed",
                     apikey = "abcdefghijklmnopqrstuvqxyz123456",
                     coerce = TRUE, simplify = TRUE),
     "character"

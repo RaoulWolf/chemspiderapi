@@ -6,8 +6,8 @@
 \usage{
 post_convert(
   input,
-  inputFormat,
-  outputFormat,
+  input_format,
+  output_format,
   apikey,
   coerce = FALSE,
   simplify = FALSE
@@ -16,9 +16,9 @@ post_convert(
 \arguments{
 \item{input}{A character string in the specified \code{inputFormat}.}
 
-\item{inputFormat}{A character string indicating which format the input has. Can be one of the following: \code{InChI}, \code{InChIKey}, \code{Mol}, or \code{SMILES}. See Details for possible conversions.}
+\item{input_format}{A character string indicating which format the input has. Can be one of the following: \code{InChI}, \code{InChIKey}, \code{Mol}, or \code{SMILES}. See Details for possible conversions.}
 
-\item{outputFormat}{A character string indicating which type of output is desired. Can be one of the following: \code{InChI}, \code{InChIKey}, \code{Mol}, or \code{SMILES}. See Details for possible conversions.}
+\item{output_format}{A character string indicating which type of output is desired. Can be one of the following: \code{InChI}, \code{InChIKey}, \code{Mol}, or \code{SMILES}. See Details for possible conversions.}
 
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
 

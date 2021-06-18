@@ -6,9 +6,9 @@
 \usage{
 post_formula(
   formula,
-  dataSources = NULL,
-  orderBy = "recordId",
-  orderDirection = "ascending",
+  data_sources = NULL,
+  order_by = "recordId",
+  order_direction = "ascending",
   apikey,
   coerce = FALSE,
   simplify = FALSE
@@ -17,11 +17,11 @@ post_formula(
 \arguments{
 \item{formula}{A character string of a chemical formula.}
 
-\item{dataSources}{Optional: Either a single character string or a vector of character string specifying the data sources. A list of possible data sources can be obtained from \code{chemspiderapi::get_datasources()}.}
+\item{data_sources}{Optional: Either a single character string or a vector of character string specifying the data sources. A list of possible data sources can be obtained from \code{chemspiderapi::get_datasources()}.}
 
-\item{orderBy}{A character string indicating by which parameter the results should be ordered; see Details.}
+\item{order_by}{A character string indicating by which parameter the results should be ordered; see Details.}
 
-\item{orderDirection}{A character string indicating in which direction the results should be ordered; see Details.}
+\item{order_direction}{A character string indicating in which direction the results should be ordered; see Details.}
 
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
 
@@ -33,18 +33,18 @@ post_formula(
 Returns the queryId string as (named) character vector.
 }
 \description{
-Functionality to POST a formula to obtain a \code{queryId} for use in \code{chemspiderapi::get_queryId_status()} and \code{chemspiderapi::get_queryId_results()}.
+Functionality to POST a formula to obtain a \code{query_id} for use in \code{chemspiderapi::get_query_id_status()} and \code{chemspiderapi::get_queryId_results()}.
 }
 \details{
-Possible values for \code{orderBy} are: \code{"recordId"} (default), \code{"massDefect"}, \code{"molecularWeight"}, \code{"referenceCount"}, \code{"dataSourceCount"}, \code{"pubmedCount"}, and \code{"rscCount"}.\cr
+Possible values for \code{order_by} are: \code{"recordId"} (default), \code{"massDefect"}, \code{"molecularWeight"}, \code{"referenceCount"}, \code{"dataSourceCount"}, \code{"pubmedCount"}, and \code{"rscCount"}.\cr
 \cr
-Possible values for \code{orderDirection} are: \code{"ascending"} (default) and \code{"descending"}.\cr
+Possible values for \code{order_direction} are: \code{"ascending"} (default) and \code{"descending"}.\cr
 \cr
 Says ChemSpider:\cr
 \cr
 \emph{"If dataSources is not specified, all known sources are searched. This will take longer."}\cr
 \cr
-If successful, returns the \code{queryId} as character string.
+If successful, returns the \code{query_id} as character string.
 }
 \examples{
 \dontrun{

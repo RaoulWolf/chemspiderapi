@@ -7,9 +7,9 @@
 post_mass_batch(
   mass,
   range,
-  dataSources = NULL,
-  orderBy = "recordId",
-  orderDirection = "ascending",
+  data_sources = NULL,
+  order_by = "recordId",
+  order_direction = "ascending",
   apikey,
   coerce = FALSE,
   simplify = FALSE
@@ -20,11 +20,11 @@ post_mass_batch(
 
 \item{range}{A vector of (double) numbers corresponding to the ranges for the above masses. Has to be within the range of [0.0001,0.001].}
 
-\item{dataSources}{Optional: A character vector specifying which data source to use. Use \code{chemspiderapi::get_datasources()} for a complete list of data sources. If none are specified (the default), will search all data sources, which can take substantially longer time to complete.}
+\item{data_sources}{Optional: A character vector specifying which data source to use. Use \code{chemspiderapi::get_datasources()} for a complete list of data sources. If none are specified (the default), will search all data sources, which can take substantially longer time to complete.}
 
-\item{orderBy}{A character vector indicating by which parameter to order. Defaults to \code{recordId}; see Details for options.}
+\item{order_by}{A character vector indicating by which parameter to order. Defaults to \code{recordId}; see Details for options.}
 
-\item{orderDirection}{A character vector indicating in which direction to order; either \code{ascending} (default) or \code{descending}.}
+\item{order_direction}{A character vector indicating in which direction to order; either \code{ascending} (default) or \code{descending}.}
 
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
 

@@ -5,32 +5,32 @@
 \title{Post elements to obtain a query ID}
 \usage{
 post_element(
-  includeElements,
-  excludeElements,
-  includeAll = FALSE,
+  include_elements,
+  exclude_elements,
+  include_all = FALSE,
   complexity = "any",
   isotopic = "any",
-  orderBy = "recordId",
-  orderDirection = "ascending",
+  order_by = "recordId",
+  order_direction = "ascending",
   apikey,
   coerce = FALSE,
   simplify = FALSE
 )
 }
 \arguments{
-\item{includeElements}{A character vector of elements to include; maximum length 15.}
+\item{include_elements}{A character vector of elements to include; maximum length 15.}
 
-\item{excludeElements}{A character vector of elements to exclude; maximum length 100.}
+\item{exclude_elements}{A character vector of elements to exclude; maximum length 100.}
 
-\item{includeAll}{\code{logical}: Only look for records containing ALL elements of \code{includeElement}?}
+\item{include_all}{\code{logical}: Only look for records containing ALL elements of \code{includeElement}?}
 
 \item{complexity}{See Details.}
 
 \item{isotopic}{See Details.}
 
-\item{orderBy}{A character vector indicating by which parameter to order. Defaults to \code{recordId}; see Details for options.}
+\item{order_by}{A character vector indicating by which parameter to order. Defaults to \code{recordId}; see Details for options.}
 
-\item{orderDirection}{A character vector indicating in which direction to order; either \code{ascending} (default) or \code{descending}.}
+\item{order_direction}{A character vector indicating in which direction to order; either \code{ascending} (default) or \code{descending}.}
 
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
 

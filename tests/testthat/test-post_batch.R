@@ -2,87 +2,87 @@ library(chemspiderapi)
 
 context("post_batch")
 
-test_that("post_batch() fails if no recordIds are provided.", {
+test_that("post_batch() fails if no record_ids are provided.", {
   expect_error(
     post_batch(fields = "all", apikey = "apikey")
   )
 })
 
-test_that("post_batch() fails if NULL recordIds are provided.", {
+test_that("post_batch() fails if NULL record_ids are provided.", {
   expect_error(
-    post_batch(recordIds = NULL, fields = "all", apikey = "apikey")
+    post_batch(record_ids = NULL, fields = "all", apikey = "apikey")
   )
 })
 
-test_that("post_batch() fails if recordIds are not a numeric vector.", {
+test_that("post_batch() fails if record_ids are not a numeric vector.", {
   expect_error(
-    post_batch(recordIds = c("recordId1", "recordId2"), fields = "all", apikey = "apikey")
+    post_batch(record_ids = c("recordId1", "recordId2"), fields = "all", apikey = "apikey")
   )
 })
 
 test_that("post_batch() fails if only a single recordId is provided.", {
   expect_error(
-    post_batch(recordIds = 2424L, fields = "all", apikey = "apikey")
+    post_batch(record_ids = 2424L, fields = "all", apikey = "apikey")
   )
 })
 
-test_that("post_batch() fails if more than 100 recordIds are provided.", {
+test_that("post_batch() fails if more than 100 record_ids are provided.", {
   expect_error(
-    post_batch(recordIds = 1:101, fields = "all", apikey = "apikey")
+    post_batch(record_ids = 1:101, fields = "all", apikey = "apikey")
   )
 })
 
 test_that("post_batch() fails if no character input is provided.", {
   expect_error(
-    post_batch(recordIds = c(2424L, 2345L), fields = 1)
+    post_batch(record_ids = c(2424L, 2345L), fields = 1)
   )
 })
 
 test_that("post_batch() fails if the wrong character string is provided as input.", {
   expect_error(
-    post_batch(recordIds = c(2424L, 2345L), fields = "Something")
+    post_batch(record_ids = c(2424L, 2345L), fields = "Something")
   )
 })
 
 test_that("post_batch() fails if no API key is provided.", {
   expect_error(
-    post_batch(recordIds = c(2424L, 2345L), fields = "all")
+    post_batch(record_ids = c(2424L, 2345L), fields = "all")
   )
 })
 
 test_that("post_batch() fails if NULL is provided as API key.", {
   expect_error(
-    post_batch(recordIds = c(2424L, 2345L), fields = "all", apikey = NULL)
+    post_batch(record_ids = c(2424L, 2345L), fields = "all", apikey = NULL)
   )
 })
 
 test_that("post_batch() fails if more than one API key is provided.", {
   expect_error(
-    post_batch(recordIds = c(2424L, 2345L), fields = "all", apikey = c("API key one", "API key two"))
+    post_batch(record_ids = c(2424L, 2345L), fields = "all", apikey = c("API key one", "API key two"))
   )
 })
 
 test_that("post_batch() fails if a numeric API key is provided.", {
   expect_error(
-    post_batch(recordIds = c(2424L, 2345L), fields = "all", apikey = 1234567890)
+    post_batch(record_ids = c(2424L, 2345L), fields = "all", apikey = 1234567890)
   )
 })
 
 test_that("post_batch() fails if a logical API key is provided.", {
   expect_error(
-    post_batch(recordIds = c(2424L, 2345L), fields = "all", apikey = TRUE)
+    post_batch(record_ids = c(2424L, 2345L), fields = "all", apikey = TRUE)
   )
 })
 
 test_that("post_batch() fails if a non 32-character length API key is provided.", {
   expect_error(
-    post_batch(recordIds = c(2424L, 2345L), fields = "all", apikey = "abcdefghijklmnopqrstuvqxyz")
+    post_batch(record_ids = c(2424L, 2345L), fields = "all", apikey = "abcdefghijklmnopqrstuvqxyz")
   )
 })
 
 test_that("post_batch() fails if \"coerce\" is not logical.", {
   expect_error(
-    post_batch(recordIds = c(2424L, 2345L), fields = "all", apikey = "abcdefghijklmnopqrstuvqxyz123456", coerce = "what")
+    post_batch(record_ids = c(2424L, 2345L), fields = "all", apikey = "abcdefghijklmnopqrstuvqxyz123456", coerce = "what")
   )
 })
 
@@ -100,28 +100,28 @@ Sys.setenv("POST_BATCH_URL" = web$url())
 
 test_that("get_datasources() returns a proper response.", {
   expect_type(
-    chemspiderapi::post_batch(recordIds = c(2424L, 2345L), apikey = "abcdefghijklmnopqrstuvqxyz123456"),
+    chemspiderapi::post_batch(record_ids = c(2424L, 2345L), apikey = "abcdefghijklmnopqrstuvqxyz123456"),
     "list"
   )
 })
 
 test_that("get_datasources() returns a proper response.", {
   expect_type(
-    chemspiderapi::post_batch(recordIds = c(2424L, 2345L), fields = c("CommonName", "SMILES"), apikey = "abcdefghijklmnopqrstuvqxyz123456"),
+    chemspiderapi::post_batch(record_ids = c(2424L, 2345L), fields = c("CommonName", "SMILES"), apikey = "abcdefghijklmnopqrstuvqxyz123456"),
     "list"
   )
 })
 
 test_that("get_datasources() returns a proper response.", {
   expect_type(
-    chemspiderapi::post_batch(recordIds = c(2424L, 2345L), fields = "CommonName", apikey = "abcdefghijklmnopqrstuvqxyz123456"),
+    chemspiderapi::post_batch(record_ids = c(2424L, 2345L), fields = "CommonName", apikey = "abcdefghijklmnopqrstuvqxyz123456"),
     "list"
   )
 })
 
 test_that("get_datasources() returns a proper response.", {
   expect_type(
-    chemspiderapi::post_batch(recordIds = c(2424L, 2345L), apikey = "abcdefghijklmnopqrstuvqxyz123456", id = FALSE, simplify_formula = TRUE, coerce = TRUE),
+    chemspiderapi::post_batch(record_ids = c(2424L, 2345L), apikey = "abcdefghijklmnopqrstuvqxyz123456", simplify_formula = TRUE, coerce = TRUE),
     "list"
   )
 })

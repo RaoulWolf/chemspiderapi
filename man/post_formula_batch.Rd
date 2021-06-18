@@ -6,9 +6,9 @@
 \usage{
 post_formula_batch(
   formulas,
-  dataSources = NULL,
-  orderBy = "recordId",
-  orderDirection = "ascending",
+  data_sources = NULL,
+  order_by = "recordId",
+  order_direction = "ascending",
   apikey,
   coerce = FALSE
 )
@@ -16,11 +16,11 @@ post_formula_batch(
 \arguments{
 \item{formulas}{A character vector of up to 100 chemical formulas.}
 
-\item{dataSources}{Optional: Either a single character string or a vector of character string specifying the data sources. A list of possible data sources can be obtained from \code{chemspiderapi::get_datasources()}.}
+\item{data_sources}{Optional: Either a single character string or a vector of character string specifying the data sources. A list of possible data sources can be obtained from \code{chemspiderapi::get_datasources()}.}
 
-\item{orderBy}{A character string indicating by which parameter the results should be ordered; see Details.}
+\item{order_by}{A character string indicating by which parameter the results should be ordered; see Details.}
 
-\item{orderDirection}{A character string indicating in which direction the results should be ordered; see Details.}
+\item{order_direction}{A character string indicating in which direction the results should be ordered; see Details.}
 
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
 

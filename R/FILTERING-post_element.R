@@ -13,13 +13,13 @@
 #' Valid values for \code{complexity} are \code{"any"}, \code{"single"}, or \code{"multiple"} whereby a compound with a complexity of multiple has more than one disconnected system in it or a metal atom or ion.\cr
 #' \cr
 #' Valid values for \code{isotopic} are \code{"any"}, \code{"labeled"}, or \code{"unlabeled"}."
-#' @param includeElements A character vector of elements to include; maximum length 15.
-#' @param excludeElements A character vector of elements to exclude; maximum length 100.
-#' @param includeAll \code{logical}: Only look for records containing ALL elements of \code{includeElement}?
+#' @param include_elements A character vector of elements to include; maximum length 15.
+#' @param exclude_elements A character vector of elements to exclude; maximum length 100.
+#' @param include_all \code{logical}: Only look for records containing ALL elements of \code{includeElement}?
 #' @param complexity See Details.
 #' @param isotopic See Details.
-#' @param orderBy A character vector indicating by which parameter to order. Defaults to \code{recordId}; see Details for options.
-#' @param orderDirection A character vector indicating in which direction to order; either \code{ascending} (default) or \code{descending}.
+#' @param order_by A character vector indicating by which parameter to order. Defaults to \code{recordId}; see Details for options.
+#' @param order_direction A character vector indicating in which direction to order; either \code{ascending} (default) or \code{descending}.
 #' @param apikey A 32-character string with a valid key for ChemSpider's API services.
 #' @param coerce \code{logical}: should the list be coerced to a data.frame? Defaults to \code{FALSE}.
 #' @param simplify \code{logical}: should the results be simplified to a vector? Defaults to \code{FALSE}.
@@ -36,60 +36,93 @@
 #' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
 #' @importFrom jsonlite fromJSON toJSON
 #' @export
-post_element <- function(includeElements, 
-                         excludeElements, 
-                         includeAll = FALSE, 
-                         complexity = "any", 
-                         isotopic = "any", 
-                         orderBy = "recordId", 
-                         orderDirection = "ascending", 
-                         apikey,
-                         coerce = FALSE,
-                         simplify = FALSE) {
+post_element <- function(
+  include_elements, 
+  exclude_elements, 
+  include_all = FALSE, 
+  complexity = "any", 
+  isotopic = "any", 
+  order_by = "recordId", 
+  order_direction = "ascending", 
+  apikey,
+  coerce = FALSE,
+  simplify = FALSE
+  ) {
   
-  .check_elements(includeElements, excludeElements)
+  .check_elements(
+    include_elements, 
+    exclude_elements
+    )
   
   .check_complexity(complexity)
   
   .check_isotopic(isotopic)
   
-  .check_order(orderBy, orderDirection)
+  .check_order(
+    order_by, 
+    order_direction
+    )
 
   .check_apikey(apikey)
   
   .check_coerce(coerce)
   
-  if (length(includeElements) == 1L) {
-    includeElements <- I(includeElements)
+  .check_simplify(simplify)
+  
+  if (length(include_elements) == 1L) {
+    include_elements <- I(include_elements)
   }
   
-  if (length(excludeElements) == 1L) {
-    excludeElements <- I(excludeElements)
+  if (length(exclude_elements) == 1L) {
+    exclude_elements <- I(exclude_elements)
   }
   
-  options <- list("includeAll" = includeAll, 
-                  "complexity" = complexity, 
-                  "isotopic" = isotopic)
+  options <- list(
+    "includeAll" = include_all, 
+    "complexity" = complexity, 
+    "isotopic" = isotopic
+    )
   
-  data <- list("includeElements" = includeElements, 
-               "excludeElements" = excludeElements, 
-               "options" = options, 
-               "orderBy" = orderBy, 
-               "orderDirection" = orderDirection)
-  data <- jsonlite::toJSON(data, auto_unbox = TRUE)
+  data <- list(
+    "includeElements" = include_elements, 
+    "excludeElements" = exclude_elements, 
+    "options" = options, 
+    "orderBy" = order_by, 
+    "orderDirection" = order_direction
+    )
   
-  header <- list("Content-Type" = "", "apikey" = apikey)
+  data <- jsonlite::toJSON(
+    data, 
+    auto_unbox = TRUE
+    )
   
-  url <- Sys.getenv("POST_ELEMENT_URL", 
-                    "https://api.rsc.org/compounds/v1/filter/element")
+  header <- list(
+    "Content-Type" = "", 
+    "apikey" = apikey
+    )
+  
+  url <- Sys.getenv(
+    "POST_ELEMENT_URL", 
+    unset = "https://api.rsc.org/compounds/v1/filter/element"
+    )
   
   handle <- curl::new_handle()
   
-  curl::handle_setopt(handle, customrequest = "POST", postfields = data)
+  curl::handle_setopt(
+    handle = handle, 
+    customrequest = "POST", 
+    postfields = data
+    )
   
-  curl::handle_setheaders(handle, .list = header)
+  curl::handle_setheaders(
+    handle = handle, 
+    .list = header
+    )
   
-  raw_result <- curl::curl_fetch_memory(url = url, handle = handle)
+  raw_result <- curl::curl_fetch_memory(
+    url = url, 
+    handle = handle
+    )
   
   .check_status_code(raw_result$status_code)
   
@@ -97,11 +130,17 @@ post_element <- function(includeElements,
   result <- jsonlite::fromJSON(result)
   
   if (coerce) {
-    result <- as.data.frame(result, stringsAsFactors = FALSE)
+    result <- as.data.frame(
+      result, 
+      stringsAsFactors = FALSE
+      )
   }
   
   if (simplify) {
-    result <- unlist(result, use.names = FALSE)
+    result <- unlist(
+      result, 
+      use.names = FALSE
+      )
   }
   
   result
