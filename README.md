@@ -11,11 +11,9 @@ status](https://github.com/RaoulWolf/chemspiderapi/workflows/R-CMD-check/badge.s
 coverage](https://codecov.io/gh/RaoulWolf/chemspiderapi/branch/master/graph/badge.svg)](https://codecov.io/gh/RaoulWolf/chemspiderapi?branch=master)
 <!-- badges: end -->
 
-*As of 18 June 2021 `RaoulWolf/chemspiderapi` is the new official
-repository of {chemspiderapi}. The old repository
-(`NIVANorge/chemspiderapi`) is orphaned.*
-
-> R functionalities for ChemSpider’s API services
+> As of 18 June 2021 `RaoulWolf/chemspiderapi` is the new official
+> repository of {chemspiderapi}. The old repository
+> (`NIVANorge/chemspiderapi`) is orphaned.
 
 ChemSpider has introduced a new API syntax in late 2018, and [the old
 ChemSpider API syntax will be shut down at the end of
@@ -212,7 +210,7 @@ This package was originally created at the [Norwegian Institute for
 Water Research (NIVA)](https://www.niva.no/en) at NIVA’s [Section for
 Ecotoxicology and Risk
 Assessment](https://www.niva.no/en/research/ecotoxicology_and_risk_assessment)
-and funded by [The Research Council of Norway
+and funded by [the Research Council of Norway
 (RCN)](https://www.forskningsradet.no/en/), project 268294: [Cumulative
 Hazard and Risk Assessment of Complex Mixtures and Multiple Stressors
 (MixRisk)](https://www.forskningsradet.no/prosjektbanken/#/project/NFR/268294/Sprak=en).
