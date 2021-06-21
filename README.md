@@ -6,13 +6,14 @@ chemspiderapi
 <!-- badges: start -->
 
 [![R build
-status](https://github.com/NIVANorge/chemspiderapi/workflows/R-CMD-check/badge.svg)](https://github.com/NIVANorge/chemspiderapi/actions)
-[![CodeCov test
-coverage](https://codecov.io/gh/NIVANorge/chemspiderapi/branch/master/graph/badge.svg)](https://codecov.io/gh/NIVANorge/chemspiderapi?branch=master)
+status](https://github.com/RaoulWolf/chemspiderapi/workflows/R-CMD-check/badge.svg)](https://github.com/RaoulWolf/chemspiderapi/actions)
+[![Codecov test
+coverage](https://codecov.io/gh/RaoulWolf/chemspiderapi/branch/master/graph/badge.svg)](https://codecov.io/gh/RaoulWolf/chemspiderapi?branch=master)
 <!-- badges: end -->
 
-*As of 18 June 2021 this is the new official repository of
-{chemspiderapi}. The old repository is orphaned.*
+*As of 18 June 2021 `RaoulWolf/chemspiderapi` is the new official
+repository of {chemspiderapi}. The old repository
+(`NIVANorge/chemspiderapi`) is orphaned.*
 
 > R functionalities for ChemSpider’s API services
 
@@ -41,7 +42,8 @@ or `purrr::slowly()` within the
 collection.
 
 To handle PNG images, the
-[`{magick}`](https://cran.r-project.org/package=magick) package is
+[`{magick}`](https://cran.r-project.org/package=magick) and
+[`{png}`](https://cran.r-project.org/package=png) packages are
 recommended.
 
 We furthermore recommend the
@@ -100,7 +102,7 @@ If `{curl}` or `{jsonlite}` are missing, (almost) all functions of
 
 ## Coverage
 
-As of 2021-06-18, the following functionalities are implemented and
+As of 2021-06-21, the following functionalities are implemented and
 fully annotated (100%):
 
 **FILTERING**
@@ -183,7 +185,7 @@ queries, *e.g.*, `get_record_id_details()`.
 
 ## Vignettes
 
-As of 2021-06-18, the following five vignettes are available:
+As of 2021-06-21, the following five vignettes are available:
 
   - **Storing and Accessing API Keys**: A basic example on how to safely
     store and retrieve API keys using the `keyring` package.

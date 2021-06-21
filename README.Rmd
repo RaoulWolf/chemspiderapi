@@ -6,11 +6,11 @@ output: github_document
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 <!-- badges: start -->
-[![R build status](https://github.com/NIVANorge/chemspiderapi/workflows/R-CMD-check/badge.svg)](https://github.com/NIVANorge/chemspiderapi/actions)
-[![CodeCov test coverage](https://codecov.io/gh/NIVANorge/chemspiderapi/branch/master/graph/badge.svg)](https://codecov.io/gh/NIVANorge/chemspiderapi?branch=master)
+[![R build status](https://github.com/RaoulWolf/chemspiderapi/workflows/R-CMD-check/badge.svg)](https://github.com/RaoulWolf/chemspiderapi/actions)
+[![Codecov test coverage](https://codecov.io/gh/RaoulWolf/chemspiderapi/branch/master/graph/badge.svg)](https://codecov.io/gh/RaoulWolf/chemspiderapi?branch=master)
 <!-- badges: end -->
 
-*As of 18 June 2021 this is the new official repository of {chemspiderapi}. The old repository is orphaned.*
+*As of 18 June 2021 `RaoulWolf/chemspiderapi` is the new official repository of {chemspiderapi}. The old repository (`NIVANorge/chemspiderapi`) is orphaned.*
 
 > R functionalities for ChemSpider's API services
 
@@ -26,7 +26,7 @@ The aim of this package is to:
 
 To limit the rate of API queries, we recommend using the  [`{ratelimitr}`](https://cran.r-project.org/package=ratelimitr) package or `purrr::slowly()` within the  [`{tidyverse}`](https://cran.r-project.org/package=tidyverse) package collection.
 
-To handle PNG images, the [`{magick}`](https://cran.r-project.org/package=magick) package is recommended.
+To handle PNG images, the [`{magick}`](https://cran.r-project.org/package=magick) and [`{png}`](https://cran.r-project.org/package=png) packages are recommended.
 
 We furthermore recommend the [`{memoise}`](https://cran.r-project.org/package=memoise) package to "remember" the results of API queries (*i.e.*, to not ruin the API allowance).
 
