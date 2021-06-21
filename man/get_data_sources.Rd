@@ -4,17 +4,13 @@
 \alias{get_data_sources}
 \title{Get external ChemSpider data sources}
 \usage{
-get_data_sources(apikey, coerce = FALSE, simplify = FALSE)
+get_data_sources(apikey = NULL)
 }
 \arguments{
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
-
-\item{coerce}{\code{logical}: should the \code{list} be coerced to a \code{data.frame}? Defaults to \code{FALSE}.}
-
-\item{simplify}{\code{logical}: should the results be simplified to a \code{vector}? Defaults to \code{FALSE}.}
 }
 \value{
-Either a \code{list}, \code{data.frame}, or \code{vector} of characters.
+A \code{list} of characters.
 }
 \description{
 Returns all external ChemSpider data sources.
@@ -24,13 +20,12 @@ Returns all external ChemSpider data sources.
 \cr
 Returns all available external ChemSpider data sources.\cr
 \cr
-This function is most useful for narrowing down \code{dataSources} in other chemspiderapi functions, for example \code{get_recordId_externalreferences()}.
+This function is most useful for narrowing down \code{data_sources} in other chemspiderapi functions, for example \code{get_record_id_external_references()}.
 }
 \examples{
 \dontrun{
 ## Get external data sources of ChemSpider
-apikey <- "A valid 32-character Chemspider API key"
-get_data_sources(apikey = apikey)
+get_data_sources(apikey)
 }
 }
 \seealso{

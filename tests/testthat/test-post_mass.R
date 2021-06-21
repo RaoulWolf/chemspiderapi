@@ -172,20 +172,8 @@ test_that("post_mass() returns a proper response.", {
   expect_type(
     post_mass(mass = 194,
               range = 0.002,
-              apikey = "abcdefghijklmnopqrstuvqxyz123456",
-              coerce = TRUE, simplify = TRUE),
-    "character"
-  )
-})
-
-test_that("post_mass() returns a proper response.", {
-  expect_type(
-    post_mass(mass = 194,
-              range = 0.002,
-              data_sources = "PubMed",
-              apikey = "abcdefghijklmnopqrstuvqxyz123456",
-              coerce = TRUE, simplify = TRUE),
-    "character"
+              apikey = "abcdefghijklmnopqrstuvqxyz123456"),
+    "list"
   )
 })
 

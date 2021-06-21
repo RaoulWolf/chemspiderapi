@@ -7,8 +7,6 @@
 #' @param order_by A character string indicating by which parameter the results should be arranged (NOT case sensitive); see Details.
 #' @param order_direction A character string indicating which in which direction the results should be arranged (NOT case sensitive); see Details.
 #' @param apikey A 32-character string with a valid key for ChemSpider's API services.
-#' @param coerce \code{logical}: should the list be coerced to a data.frame? Defaults to \code{FALSE}.
-#' @param simplify \code{logical}: should the results be simplified to a vector? Defaults to \code{FALSE}.
 #' @return Returns the queryId string as (named) character vector.
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/post/filter/name}
 #' @examples \dontrun{
@@ -20,85 +18,40 @@
 #' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
 #' @importFrom jsonlite fromJSON toJSON
 #' @export
-post_name <- function(
-  name, 
-  order_by = "recordId", 
-  order_direction = "ascending", 
-  apikey,
-  coerce = FALSE, 
-  simplify = FALSE
-  ) {
+post_name <- function(name, order_by = "recordId", 
+                      order_direction = "ascending", apikey = NULL) {
   
   .check_name(name)
   
-  .check_order(
-    order_by, 
-    order_direction
-    )
+  .check_order(order_by, order_direction)
   
   .check_apikey(apikey)
   
-  .check_coerce(coerce)
+  data <- list("name" = name, "orderBy" = order_by, 
+               "orderDirection" = order_direction)
   
-  .check_simplify(simplify)
+  data <- jsonlite::toJSON(data, auto_unbox = TRUE)
   
-  data <- list(
-    "name" = name, 
-    "orderBy" = order_by, 
-    "orderDirection" = order_direction
-    )
+  header <- list("Content-Type" = "", "apikey" = apikey)
   
-  data <- jsonlite::toJSON(
-    data, 
-    auto_unbox = TRUE
-    )
-  
-  header <- list(
-    "Content-Type" = "", 
-    "apikey" = apikey
-    )
-  
-  url <- Sys.getenv(
-    "POST_NAME_URL", 
-    unset = "https://api.rsc.org/compounds/v1/filter/name"
-    )
+  url <- Sys.getenv("POST_NAME_URL", 
+                    unset = "https://api.rsc.org/compounds/v1/filter/name")
   
   handle <- curl::new_handle()
   
-  curl::handle_setopt(
-    handle = handle, 
-    customrequest = "POST", 
-    postfields = data
-    )
+  curl::handle_setopt(handle = handle, customrequest = "POST", 
+                      postfields = data)
   
-  curl::handle_setheaders(
-    handle = handle, 
-    .list = header
-    )
+  curl::handle_setheaders(handle = handle, .list = header)
   
-  raw_result <- curl::curl_fetch_memory(
-    url = url, 
-    handle = handle
-    )
+  result <- curl::curl_fetch_memory(url = url, handle = handle)
   
-  .check_status_code(raw_result$status_code)
+  .check_status_code(result$status_code)
   
-  result <- rawToChar(raw_result$content)
-  result <- jsonlite::fromJSON(result)
+  content <- rawToChar(result$content)
   
-  if (coerce) {
-    result <- as.data.frame(
-      result, 
-      stringsAsFactors = FALSE
-      )
-  }
+  content <- jsonlite::fromJSON(content)
+
+  content
   
-  if (simplify) {
-    result <- unlist(
-      result, 
-      use.names = FALSE
-      )
-  }
-  
-  result
 }

@@ -12,9 +12,7 @@ post_element(
   isotopic = "any",
   order_by = "recordId",
   order_direction = "ascending",
-  apikey,
-  coerce = FALSE,
-  simplify = FALSE
+  apikey = NULL
 )
 }
 \arguments{
@@ -33,10 +31,6 @@ post_element(
 \item{order_direction}{A character vector indicating in which direction to order; either \code{ascending} (default) or \code{descending}.}
 
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
-
-\item{coerce}{\code{logical}: should the list be coerced to a data.frame? Defaults to \code{FALSE}.}
-
-\item{simplify}{\code{logical}: should the results be simplified to a vector? Defaults to \code{FALSE}.}
 }
 \value{
 Returns the queryId string as (named) character vector.

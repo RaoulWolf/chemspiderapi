@@ -138,29 +138,8 @@ test_that("post_formula() returns a proper response.", {
   expect_type(
     post_formula(formula = "C8H10N4O2", data_sources = NULL,
                  order_by = "recordId", order_direction = "ascending",
-                 apikey = "abcdefghijklmnopqrstuvqxyz123456",
-                 coerce = TRUE),
+                 apikey = "abcdefghijklmnopqrstuvqxyz123456"),
     "list"
-  )
-})
-
-test_that("post_formula() returns a proper response.", {
-  expect_type(
-    post_formula(formula = "C8H10N4O2", data_sources = NULL,
-                 order_by = "recordId", order_direction = "ascending",
-                 apikey = "abcdefghijklmnopqrstuvqxyz123456",
-                 simplify = TRUE),
-    "character"
-  )
-})
-
-test_that("post_formula() returns a proper response.", {
-  expect_type(
-    post_formula(formula = "C8H10N4O2", data_sources = "PubChem",
-                 order_by = "recordId", order_direction = "ascending",
-                 apikey = "abcdefghijklmnopqrstuvqxyz123456",
-                 simplify = TRUE),
-    "character"
   )
 })
 

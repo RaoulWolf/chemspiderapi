@@ -3,6 +3,7 @@
 #' @details Returns a numeric (double) array. To save the picture, see the vignette "Saving PNG Images of Chemicals".
 #' @param record_id A valid (integer) ChemSpider ID.
 #' @param apikey A 32-character string with a valid key for ChemSpider's API services.
+#' @param decode \code{logical}: should the base64-encoded image be decoded into a raw vector? Defaults to \code{FALSE}.
 #' @return A numeric array.
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/get/records/{recordId}/image} 
 #' @author Raoul Wolf (\url{https://github.com/RaoulWolf/})
@@ -18,56 +19,38 @@
 #' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
 #' @importFrom jsonlite base64_dec fromJSON
 #' @export 
-get_record_id_image <- function(
-  record_id, 
-  apikey
-  ) {
+get_record_id_image <- function(record_id, apikey = NULL, decode = FALSE) {
   
   .check_record_id(record_id)
   
   .check_apikey(apikey)
   
-  header <- list(
-    "Content-Type" = "", 
-    "apikey" = apikey
-    )
+  header <- list("Content-Type" = "", "apikey" = apikey)
   
-  base_url <- Sys.getenv(
-    "GET_RECORD_ID_URL",
-    unset = "https://api.rsc.org/compounds/v1/records/"
-    )
+  base_url <- Sys.getenv("GET_RECORD_ID_URL",
+                         unset = "https://api.rsc.org/compounds/v1/records/")
   
-  url <- paste0(
-    base_url, 
-    record_id, 
-    "/image"
-    )
+  url <- paste0(base_url, record_id, "/image")
   
   handle <- curl::new_handle()
   
-  curl::handle_setopt(
-    handle = handle, 
-    customrequest = "GET"
-    )
+  curl::handle_setopt(handle = handle, customrequest = "GET")
   
-  curl::handle_setheaders(
-    handle = handle, 
-    .list = header
-    )
+  curl::handle_setheaders(handle = handle, .list = header)
   
-  result <- curl::curl_fetch_memory(
-    url = url, 
-    handle = handle
-    )
+  result <- curl::curl_fetch_memory(url = url, handle = handle)
   
   .check_status_code(result$status_code)
   
   content <- rawToChar(result$content)
+  
   content <- jsonlite::fromJSON(content)
   
-  # if (decode) {
-  #   content$image <- jsonlite::base64_dec(content$image)
-  # }
+  if (decode) {
+    
+    content$image <- jsonlite::base64_dec(content$image)
+    
+  }
   
   content
 }

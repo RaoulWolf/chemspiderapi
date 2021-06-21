@@ -17,11 +17,8 @@
 #' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
 #' @importFrom jsonlite fromJSON
 #' @export 
-get_record_id_external_references <- function(
-  record_id, 
-  data_sources = NULL, 
-  apikey
-  ) {
+get_record_id_external_references <- function(record_id, data_sources = NULL, 
+                                              apikey = NULL) {
   
   .check_record_id(record_id)
 
@@ -29,58 +26,42 @@ get_record_id_external_references <- function(
   
   .check_apikey(apikey)
   
-  base_url <- Sys.getenv(
-    "GET_RECORD_ID_URL",
-    unset = "https://api.rsc.org/compounds/v1/records/"
-    )
+  base_url <- Sys.getenv("GET_RECORD_ID_URL",
+                         unset = "https://api.rsc.org/compounds/v1/records/")
   
   if (!is.null(data_sources)) {
-    if (length(data_sources) > 1L) {
-      data_sources <- paste(
-        data_sources, 
-        collapse = ","
-        )
+    
+    if (length(data_sources) > 1) {
+      
+      data_sources <- paste(data_sources, collapse = ",")
+      
     }
-    url <- paste0(
-      base_url, 
-      record_id, 
-      "/externalreferences?dataSources=", 
-      data_sources
-      )
+    
+    url <- paste0(base_url, record_id, "/externalreferences?dataSources=", 
+                  data_sources)
+    
   } else {
-    url <- paste0(
-      base_url, 
-      record_id, 
-      "/externalreferences"
-      )
+    
+    url <- paste0(base_url, record_id, "/externalreferences")
+    
   }
 
-  header <- list(
-    "Content-Type" = "", 
-    "apikey" = apikey
-    )
+  header <- list("Content-Type" = "", "apikey" = apikey)
   
   handle <- curl::new_handle()
   
-  curl::handle_setopt(
-    handle = handle, 
-    customrequest = "GET"
-    )
+  curl::handle_setopt(handle = handle, customrequest = "GET")
   
-  curl::handle_setheaders(
-    handle = handle, 
-    .list = header
-    )
+  curl::handle_setheaders(handle = handle, .list = header)
   
-  result <- curl::curl_fetch_memory(
-    url = url, 
-    handle = handle
-    )
+  result <- curl::curl_fetch_memory(url = url, handle = handle)
   
   .check_status_code(result$status_code)
   
   content <- rawToChar(result$content)
+  
   content <- jsonlite::fromJSON(content)
   
-  result
+  content
+  
 }

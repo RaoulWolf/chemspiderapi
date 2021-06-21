@@ -4,14 +4,12 @@
 \alias{get_record_id_mol}
 \title{Get the MOL file of a ChemSpider record}
 \usage{
-get_record_id_mol(record_id, apikey, simplify = FALSE)
+get_record_id_mol(record_id, apikey = NULL)
 }
 \arguments{
 \item{record_id}{A valid (integer) ChemSpider ID.}
 
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
-
-\item{simplify}{\code{logical}: should the results be simplified to a vector? Defaults to \code{FALSE}.}
 }
 \value{
 A character string containing the (human-readable) .MOL file.
@@ -27,9 +25,12 @@ Call this endpoint with \code{recordId} as an integer. To save the MOL/SDF file,
 \examples{
 \dontrun{
 ## Get the MOL file for caffeine
-recordId <- 2424L
+record_id <- 2424L
 apikey <- "a valid 32-character ChemSpider apikey"
-get_recordId_mol(recordId = recordId, apikey = apikey)
+get_record_id_mol(
+  record_id = record_id, 
+  apikey = apikey
+  )
 }
 }
 \seealso{

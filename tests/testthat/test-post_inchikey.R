@@ -31,18 +31,8 @@ Sys.setenv("POST_INCHIKEY_URL" = web$url())
 test_that("post_inchikey() returns a proper response.", {
   expect_type(
     post_inchikey(inchikey = "RYYVLZVUVIJVGH-UHFFFAOYSA-N",
-                  apikey = "abcdefghijklmnopqrstuvqxyz123456",
-                  coerce = TRUE),
+                  apikey = "abcdefghijklmnopqrstuvqxyz123456"),
     "list"
-  )
-})
-
-test_that("post_inchikey() returns a proper response.", {
-  expect_type(
-    post_inchikey(inchikey = "RYYVLZVUVIJVGH-UHFFFAOYSA-N",
-                  apikey = "abcdefghijklmnopqrstuvqxyz123456",
-                  simplify = TRUE),
-    "character"
   )
 })
 

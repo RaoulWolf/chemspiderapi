@@ -2,68 +2,89 @@ library(chemspiderapi)
 
 context("check_format")
 
-test_that("check_format() fails if no input is provided.", {
+test_that("fails if no input is provided.", {
+  
   expect_error(
     .check_format()
     )
+  
 })
 
-test_that("check_format() fails if NULL is provided as input.", {
+test_that("fails if NULL is provided as input.", {
+  
   expect_error(
     .check_format(input = NULL)
   )
+  
 })
 
-test_that("check_format() fails if multiple inputs are provided.", {
+test_that("fails if multiple inputs are provided.", {
+  
   expect_error(
-    .check_format(input = c("RYYVLZVUVIJVGH-UHFFFAOYSA-N", "CN1C=NC2=C1C(=O)N(C(=O)N2C)C"))
+    .check_format(input = c("RYYVLZVUVIJVGH-UHFFFAOYSA-N", 
+                            "CN1C=NC2=C1C(=O)N(C(=O)N2C)C"))
   )
+  
 })
 
-test_that("check_format() fails if a non-character input is provided.", {
+test_that("fails if a non-character input is provided.", {
+  
   expect_error(
     .check_format(input = 123)
   )
+  
 })
 
-test_that("check_format() fails if no inputFormat is provided.", {
+test_that("fails if no input_format is provided.", {
+  
   expect_error(
-    .check_format(input = "RYYVLZVUVIJVGH-UHFFFAOYSA-N", outputFormat = "SMILES")
+    .check_format(input = "RYYVLZVUVIJVGH-UHFFFAOYSA-N", 
+                  output_format = "SMILES")
   )
+  
 })
 
-test_that("check_format() fails if NULL is provided as inputFormat.", {
+test_that("fails if NULL is provided as inputFormat.", {
+  
   expect_error(
-    .check_format(input = "RYYVLZVUVIJVGH-UHFFFAOYSA-N", inputFormat = NULL, outputFormat = "SMILES")
+    .check_format(input = "RYYVLZVUVIJVGH-UHFFFAOYSA-N", 
+                  input_format = NULL, output_format = "SMILES")
   )
+  
 })
 
-test_that("check_format() fails if no outputFormat is provided.", {
+test_that("fails if no outputFormat is provided.", {
+  
   expect_error(
-    .check_format(input = "RYYVLZVUVIJVGH-UHFFFAOYSA-N", inputFormat = "InChIKey")
+    .check_format(input = "RYYVLZVUVIJVGH-UHFFFAOYSA-N", 
+                  input_format = "InChIKey")
   )
+  
 })
 
-test_that("check_format() fails if NULL is provided as outputFormat.", {
+test_that("fails if NULL is provided as output_format.", {
+  
   expect_error(
-    .check_format(input = "RYYVLZVUVIJVGH-UHFFFAOYSA-N", inputFormat = "InChIKey", outputFormat = NULL)
+    .check_format(input = "RYYVLZVUVIJVGH-UHFFFAOYSA-N", 
+                  input_format = "InChIKey", output_format = NULL)
   )
+  
 })
 
-test_that("check_format() remains silent when correct inputs are provided.", {
+test_that("remains silent when correct inputs are provided.", {
+  
   expect_silent(
-    .check_format(input = "RYYVLZVUVIJVGH-UHFFFAOYSA-N", inputFormat = "InChIKey", outputFormat = "SMILES")
+    .check_format(input = "RYYVLZVUVIJVGH-UHFFFAOYSA-N", 
+                  input_format = "InChIKey", output_format = "InChI")
   )
+  
 })
 
-test_that("check_format() fails if the inchi string is incomplete.", {
+test_that("fails if the inchi string is incomplete.", {
+  
   expect_error(
-    .check_format(input = "C8H10N4O2/c1-10-4-9-6-5(10)7(13)12(3)8(14)11(6)2/h4H,1-3H3", inputFormat = "InChI", outputFormat = "SMILES")
+    .check_format(input = "C2H6O/c1-2-3/h3H,2H2,1H3", 
+                  input_format = "InChI", output_format = "SMILES")
   )
-})
-
-test_that("check_format() fails if smiles is not a character vector.", {
-  expect_error(
-    .check_format(input = "InChI=1S/C8H10N4O2/c1-10-4-9-6-5(10)7(13)12(3)8(14)11(6)2/h4H,1-3H3", inputFormat = "SMILES", outputFormat = "InChIKey")
-  )
+  
 })

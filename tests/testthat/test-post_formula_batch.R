@@ -132,7 +132,7 @@ app <- webfakes::new_app()
 app$use(webfakes::mw_json())
 app$post("/", function(req, res) {
   res$
-    set_status(200L)$
+    set_status(200)$
     send(charToRaw("{\"queryId\":\"fe7fe60b-0b67-4b24-9d9b-1cf01b75f844\"}"))
 })
 
@@ -144,16 +144,6 @@ test_that("post_formula_batch() returns a proper response.", {
   expect_type(
     post_formula_batch(formulas = c("C9H8O4", "C17H21NO4"),
                        apikey = "abcdefghijklmnopqrstuvqxyz123456"),
-    "list"
-  )
-})
-
-test_that("post_formula_batch() returns a proper response.", {
-  expect_type(
-    post_formula_batch(formulas = c("C9H8O4", "C17H21NO4"),
-                       data_sources = "Royal Society of Chemistry",
-                       apikey = "abcdefghijklmnopqrstuvqxyz123456",
-                       coerce = TRUE),
     "list"
   )
 })

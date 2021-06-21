@@ -83,18 +83,8 @@ Sys.setenv("POST_SMILES_URL" = web$url())
 test_that("post_smiles() returns a proper response.", {
   expect_type(
     post_smiles(smiles = "CN1C=NC2=C1C(=O)N(C(=O)N2C)C",
-                apikey = "abcdefghijklmnopqrstuvqxyz123456",
-                coerce = TRUE),
+                apikey = "abcdefghijklmnopqrstuvqxyz123456"),
     "list"
-  )
-})
-
-test_that("post_smiles() returns a proper response.", {
-  expect_type(
-    post_smiles(smiles = "CN1C=NC2=C1C(=O)N(C(=O)N2C)C",
-                apikey = "abcdefghijklmnopqrstuvqxyz123456",
-                simplify = TRUE),
-    "character"
   )
 })
 

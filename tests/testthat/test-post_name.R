@@ -113,18 +113,8 @@ Sys.setenv("POST_NAME_URL" = web$url())
 test_that("post_name() returns a proper response.", {
   expect_type(
     post_name(name = "caffeine",
-              apikey = "abcdefghijklmnopqrstuvqxyz123456",
-              coerce = TRUE),
+              apikey = "abcdefghijklmnopqrstuvqxyz123456"),
     "list"
-  )
-})
-
-test_that("post_name() returns a proper response.", {
-  expect_type(
-    post_name(name = "caffeine",
-              apikey = "abcdefghijklmnopqrstuvqxyz123456",
-              simplify = TRUE),
-    "character"
   )
 })
 

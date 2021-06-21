@@ -159,22 +159,11 @@ test_that("post_mass_batch() returns a proper response.", {
   expect_type(
     post_mass_batch(mass = c(150, 140, 120), 
                     range = c(0.002, 0.001, 0.002),
-                    apikey = "abcdefghijklmnopqrstuvqxyz123456",
-                    coerce = TRUE, simplify = TRUE),
-    "character"
+                    apikey = "abcdefghijklmnopqrstuvqxyz123456"),
+    "list"
   )
 })
 
-test_that("post_mass_batch() returns a proper response.", {
-  expect_type(
-    post_mass_batch(mass = c(150, 140, 120), 
-                    range = c(0.002, 0.001, 0.002),
-                    data_sources = "PubMed",
-                    apikey = "abcdefghijklmnopqrstuvqxyz123456",
-                    coerce = TRUE, simplify = TRUE),
-    "character"
-  )
-})
 
 Sys.unsetenv("POST_MASS_BATCH_URL")
 

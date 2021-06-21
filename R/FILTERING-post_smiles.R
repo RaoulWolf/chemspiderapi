@@ -3,8 +3,6 @@
 #' @details If successful, returns the \code{queryId} as character string.
 #' @param smiles A SMILES character string.
 #' @param apikey A 32-character string with a valid key for ChemSpider's API services.
-#' @param coerce \code{logical}: should the list be coerced to a data.frame? Defaults to \code{FALSE}.
-#' @param simplify \code{logical}: should the results be simplified to a vector? Defaults to \code{FALSE}.
 #' @return Returns the queryId string as (named) character vector.
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/post/filter/smiles}
 #' @examples \dontrun{
@@ -16,34 +14,17 @@
 #' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
 #' @importFrom jsonlite fromJSON toJSON
 #' @export
-post_smiles <- function(
-  smiles, 
-  apikey, 
-  coerce = FALSE, 
-  simplify = FALSE
-  ) {
+post_smiles <- function(smiles, apikey = NULL) {
   
   .check_smiles(smiles)
   
   .check_apikey(apikey)
   
-  .check_coerce(coerce)
+  data <- list("smiles" = smiles)
   
-  .check_simplify(simplify)
+  data <- jsonlite::toJSON(data, auto_unbox = TRUE)
   
-  data <- list(
-    "smiles" = smiles
-    )
-  
-  data <- jsonlite::toJSON(
-    data, 
-    auto_unbox = TRUE
-    )
-  
-  header <- list(
-    "Content-Type" = "", 
-    "apikey" = apikey
-    )
+  header <- list("Content-Type" = "", "apikey" = apikey)
   
   url <- Sys.getenv(
     "POST_SMILES_URL",
@@ -52,40 +33,19 @@ post_smiles <- function(
   
   handle <- curl::new_handle()
   
-  curl::handle_setopt(
-    handle = handle, 
-    customrequest = "POST", 
-    postfields = data
-    )
+  curl::handle_setopt(handle = handle, customrequest = "POST",
+                      postfields = data)
   
-  curl::handle_setheaders(
-    handle = handle, 
-    .list = header
-    )
+  curl::handle_setheaders(handle = handle, .list = header)
   
-  raw_result <- curl::curl_fetch_memory(
-    url = url, 
-    handle = handle
-    )
+  result <- curl::curl_fetch_memory(url = url, handle = handle)
   
-  .check_status_code(raw_result$status_code)
+  .check_status_code(result$status_code)
   
-  result <- rawToChar(raw_result$content)
-  result <- jsonlite::fromJSON(result)
+  content <- rawToChar(result$content)
   
-  if (coerce) {
-    result <- as.data.frame(
-      result, 
-      stringsAsFactors = FALSE
-      )
-  }
+  content <- jsonlite::fromJSON(content)
+
+  content
   
-  if (simplify) {
-    result <- unlist(
-      result, 
-      use.names = FALSE
-      )
-  }
-  
-  result
 }

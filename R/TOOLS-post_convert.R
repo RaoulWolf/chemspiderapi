@@ -1,6 +1,6 @@
 #' @title Convert between chemical identifiers
 #' @description Functionality to convert between different chemical identifier formats: InChI, InChIKey, Mol, and SMILES.
-#' @details "Specify the input format as a string called 'input_format', and the output as a string called 'output_format'. Allowed conversions: from InChI to InChI Key, from InChI to Mol file, from InChI to SMILES, from InChIKey to InChI, from InChI Key to Mol file, from Mol file to InChI, from Mol file to InChI Key, from SMILES to InChI."\cr
+#' @details "Specify the input format as a string called 'input_format', and the output as a string called 'output_format'. Allowed conversions: from InChI to InChIKey, from InChI to Mol file, from InChI to SMILES, from InChIKey to InChI, from InChIKey to Mol file, from Mol file to InChI, from Mol file to InChIKey, from SMILES to InChI."\cr
 #' \cr
 #' The identifier names are NOT case sensitive!
 #' @param input A character string in the specified \code{input_format}.
@@ -25,64 +25,37 @@
 #' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
 #' @importFrom jsonlite fromJSON toJSON
 #' @export    
-post_convert <- function(
-  input, 
-  input_format, 
-  output_format, 
-  apikey = NULL
-  ) {
+post_convert <- function(input, input_format, output_format, apikey = NULL) {
   
-  .check_format(
-    input, 
-    input_format, 
-    output_format
-    )
+  .check_format(input, input_format, output_format)
   
   .check_apikey(apikey)
   
-  data <- list(
-    "input" = input, 
-    "inputFormat" = input_format, 
-    "outputFormat" = output_format
-    )
+  data <- list("input" = input, "inputFormat" = input_format, 
+               "outputFormat" = output_format)
   
-  data <- jsonlite::toJSON(
-    data, 
-    auto_unbox = TRUE
-    )
+  data <- jsonlite::toJSON(data, auto_unbox = TRUE)
   
-  header <- list(
-    "Content-Type" = "", 
-    "apikey" = apikey
-    )
+  header <- list("Content-Type" = "", "apikey" = apikey)
   
-  url <- Sys.getenv(
-    "POST_CONVERT_URL",
-    unset = "https://api.rsc.org/compounds/v1/tools/convert"
-    )
+  url <- Sys.getenv("POST_CONVERT_URL",
+                    unset = "https://api.rsc.org/compounds/v1/tools/convert")
   
   handle <- curl::new_handle()
   
-  curl::handle_setopt(
-    handle = handle, 
-    customrequest = "POST", 
-    postfields = data
-    )
+  curl::handle_setopt(handle = handle, customrequest = "POST", 
+                      postfields = data)
   
-  curl::handle_setheaders(
-    handle = handle, 
-    .list = header
-    )
+  curl::handle_setheaders(handle = handle, .list = header)
   
-  result <- curl::curl_fetch_memory(
-    url = url, 
-    handle = handle
-    )
+  result <- curl::curl_fetch_memory(url = url, handle = handle)
   
   .check_status_code(result$status_code)
   
   content <- rawToChar(result$content)
+  
   content <- jsonlite::fromJSON(content)
   
   content
+  
 }

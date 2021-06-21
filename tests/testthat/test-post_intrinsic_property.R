@@ -37,10 +37,8 @@ test_that("post_intrinsic_property() returns a proper response.", {
     post_intrinsic_property(property = "MolecularWeight",
                             mass = 194, 
                             range = 0.5,
-                            apikey = "abcdefghijklmnopqrstuvqxyz123456",
-                            coerce = TRUE, 
-                            simplify = TRUE),
-    "character"
+                            apikey = "abcdefghijklmnopqrstuvqxyz123456"),
+    "list"
   )
 })
 
@@ -65,10 +63,8 @@ test_that("post_intrinsic_property() returns a proper response.", {
     post_intrinsic_property(property = "NominalMass",
                             mass = 194, 
                             range = 0.5,
-                            apikey = "abcdefghijklmnopqrstuvqxyz123456",
-                            coerce = TRUE, 
-                            simplify = TRUE),
-    "character"
+                            apikey = "abcdefghijklmnopqrstuvqxyz123456"),
+    "list"
   )
 })
 
@@ -93,10 +89,8 @@ test_that("post_intrinsic_property() returns a proper response.", {
     post_intrinsic_property(property = "AverageMass",
                             mass = 194, 
                             range = 0.5,
-                            apikey = "abcdefghijklmnopqrstuvqxyz123456",
-                            coerce = TRUE, 
-                            simplify = TRUE),
-    "character"
+                            apikey = "abcdefghijklmnopqrstuvqxyz123456"),
+    "list"
   )
 })
 
@@ -116,17 +110,6 @@ web <- webfakes::new_app_process(app)
 
 Sys.setenv("POST_INTRINSIC_PROPERTY_URL" = web$url())
 
-test_that("post_intrinsic_property() returns a proper response.", {
-  expect_type(
-    post_intrinsic_property(property = "MonoisotopicMass",
-                            mass = 194, 
-                            range = 0.5,
-                            apikey = "abcdefghijklmnopqrstuvqxyz123456",
-                            coerce = TRUE, 
-                            simplify = TRUE),
-    "character"
-  )
-})
 
 Sys.unsetenv("POST_INTRINSIC_PROPERTY_URL")
 
@@ -148,10 +131,8 @@ test_that("post_intrinsic_property() returns a proper response.", {
   expect_type(
     post_intrinsic_property(property = "Formula",
                             formula = "C8H10N4O2",
-                            apikey = "abcdefghijklmnopqrstuvqxyz123456",
-                            coerce = TRUE, 
-                            simplify = TRUE),
-    "character"
+                            apikey = "abcdefghijklmnopqrstuvqxyz123456"),
+    "list"
   )
 })
 

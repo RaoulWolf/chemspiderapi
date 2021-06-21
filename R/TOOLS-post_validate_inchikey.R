@@ -15,60 +15,47 @@
 #' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
 #' @importFrom jsonlite fromJSON toJSON
 #' @export
-post_validate_inchikey <- function(
-  inchikey, 
-  apikey = NULL
-  ) {
+post_validate_inchikey <- function(inchikey, apikey = NULL) {
   
   .check_inchikey(inchikey)
   
   .check_apikey(apikey)
   
-  data <- list(
-    "inchikey" = inchikey
-    )
+  data <- list("inchikey" = inchikey)
   
-  data <- jsonlite::toJSON(
-    data, 
-    auto_unbox = TRUE
-    )
+  data <- jsonlite::toJSON(data, auto_unbox = TRUE)
   
-  header <- list(
-    "Content-Type" = "", 
-    "apikey" = apikey
-    )
+  header <- list("Content-Type" = "", "apikey" = apikey)
   
   url <- Sys.getenv(
     "POST_VALIDATE_INCHIKEY_URL",
-    unset = "https://api.rsc.org/compounds/v1/tools/validate/inchikey"
-    )
+    unset = "https://api.rsc.org/compounds/v1/tools/validate/inchikey")
   
   handle <- curl::new_handle()
   
-  curl::handle_setopt(
-    handle = handle, 
-    customrequest = "POST", 
-    postfields = data
-    )
+  curl::handle_setopt(handle = handle, customrequest = "POST", 
+                      postfields = data)
   
-  curl::handle_setheaders(
-    handle = handle, 
-    .list = header
-    )
+  curl::handle_setheaders(handle = handle, .list = header)
   
-  result <- curl::curl_fetch_memory(
-    url = url, 
-    handle = handle
-    )
+  result <- curl::curl_fetch_memory(url = url, handle = handle)
   
   if (result$status_code == 200) {
+    
     content <- rawToChar(result$content)
+    
     content <- jsonlite::fromJSON(content)
+    
     } else if (result$status_code == 400) {
+      
       content <- list("valid" = FALSE)
+      
       } else {
+        
         .check_status_code(result$status_code)
+        
         }
   
   content
+  
 }

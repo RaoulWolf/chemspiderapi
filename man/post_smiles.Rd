@@ -4,16 +4,12 @@
 \alias{post_smiles}
 \title{Post a SMILES string}
 \usage{
-post_smiles(smiles, apikey, coerce = FALSE, simplify = FALSE)
+post_smiles(smiles, apikey = NULL)
 }
 \arguments{
 \item{smiles}{A SMILES character string.}
 
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
-
-\item{coerce}{\code{logical}: should the list be coerced to a data.frame? Defaults to \code{FALSE}.}
-
-\item{simplify}{\code{logical}: should the results be simplified to a vector? Defaults to \code{FALSE}.}
 }
 \value{
 Returns the queryId string as (named) character vector.

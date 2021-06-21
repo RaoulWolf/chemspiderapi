@@ -4,7 +4,7 @@
 \alias{get_formula_batch_query_id_results}
 \title{Get results of a formula batch query from ChemSpider}
 \usage{
-get_formula_batch_query_id_results(query_id, status, apikey, coerce = FALSE)
+get_formula_batch_query_id_results(query_id, status, apikey = NULL)
 }
 \arguments{
 \item{query_id}{A valid 36-character query ID, as returned by \code{post_formula_batch()}.}
@@ -12,8 +12,6 @@ get_formula_batch_query_id_results(query_id, status, apikey, coerce = FALSE)
 \item{status}{A character string indicating the query status as returned by \code{get_formula_batch_queryId_status()}.}
 
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
-
-\item{coerce}{\code{logical}: should the list be coerced to a \code{data.frame}? Defaults to \code{FALSE}.}
 }
 \value{
 Returns the (integer) ChemSpider IDs as \code{list} or \code{data.frame}.

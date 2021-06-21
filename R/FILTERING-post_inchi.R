@@ -3,8 +3,6 @@
 #' @details The validity criteria for InChI strings are outlined here: \url{https://www.inchi-trust.org/technical-faq/#2.8}. If certain criteria are not met by the input \code{inchi}, \code{chemspiderapi::post_inchi()} returns an error message and does not perform an API query.
 #' @param inchi A valid InChI string; see Details.
 #' @param apikey A 32-character string with a valid key for ChemSpider's API services.
-#' @param coerce \code{logical}: should the list be coerced to a data.frame? Defaults to \code{FALSE}.
-#' @param simplify \code{logical}: should the results be simplified to a vector? Defaults to \code{FALSE}.
 #' @return Returns the queryId string as (named) character vector.
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/post/filter/inchi} 
 #' @author Raoul Wolf (\url{https://github.com/RaoulWolf/})
@@ -16,34 +14,17 @@
 #' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
 #' @importFrom jsonlite fromJSON toJSON
 #' @export
-post_inchi <- function(
-  inchi, 
-  apikey, 
-  coerce = FALSE, 
-  simplify = FALSE
-  ) {
+post_inchi <- function(inchi, apikey = NULL) {
   
   .check_inchi(inchi)
   
   .check_apikey(apikey)
   
-  .check_coerce(coerce)
+  data <- list("inchi" = inchi)
   
-  .check_simplify(simplify)
+  data <- jsonlite::toJSON(data, auto_unbox = TRUE)
   
-  data <- list(
-    "inchi" = inchi
-    )
-  
-  data <- jsonlite::toJSON(
-    x = data, 
-    auto_unbox = TRUE
-    )
-  
-  header <- list(
-    "Content-Type" = "", 
-    "apikey" = apikey
-    )
+  header <- list("Content-Type" = "", "apikey" = apikey)
   
   url <- Sys.getenv(
     "POST_INCHI_URL",
@@ -52,40 +33,19 @@ post_inchi <- function(
   
   handle <- curl::new_handle()
   
-  curl::handle_setopt(
-    handle = handle, 
-    customrequest = "POST", 
-    postfields = data
-    )
+  curl::handle_setopt(handle = handle, customrequest = "POST",
+                      postfields = data)
   
-  curl::handle_setheaders(
-    handle = handle, 
-    .list = header
-    )
+  curl::handle_setheaders(handle = handle, .list = header)
   
-  raw_result <- curl::curl_fetch_memory(
-    url = url, 
-    handle = handle
-    )
+  result <- curl::curl_fetch_memory(url = url, handle = handle)
   
-  .check_status_code(raw_result$status_code)
+  .check_status_code(result$status_code)
   
-  result <- rawToChar(raw_result$content)
-  result <- jsonlite::fromJSON(result)
+  content <- rawToChar(result$content)
   
-  if (coerce) {
-    result <- as.data.frame(
-      result, 
-      stringsAsFactors = FALSE
-      )
-  }
+  content <- jsonlite::fromJSON(content)
   
-  if (simplify) {
-    result <- unlist(
-      result, 
-      use.names = FALSE
-      )
-  }
+  content
   
-  result
 }

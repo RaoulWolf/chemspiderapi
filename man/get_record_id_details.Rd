@@ -7,9 +7,8 @@
 get_record_id_details(
   record_id,
   fields = "all",
-  apikey,
-  simplify_formula = FALSE,
-  coerce = FALSE
+  apikey = NULL,
+  simplify_formula = FALSE
 )
 }
 \arguments{
@@ -20,8 +19,6 @@ get_record_id_details(
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
 
 \item{simplify_formula}{\code{logical}: Should formula strings be simplified? Defaults to \code{FALSE}.}
-
-\item{coerce}{\code{logical}: should the list be coerced to a data.frame? Defaults to \code{FALSE}.}
 }
 \value{
 A \code{data.frame} if multiple columns are returned, or a vector of the appropriate type if only one \code{field} is returned.
@@ -37,15 +34,17 @@ The available fields are: SMILES, Formula, InChI, InChIKey, StdInChI, StdInChIKe
 \examples{
 \dontrun{
 ## Get the record details for caffeine
-recordId <- 2424L
+record_id <- 2424L
 apikey <- "A valid 32-character Chemspider API key"
 get_record_id_details(record_id = record_id, 
                       fields = c(
                         "SMILES", 
                         "Formula", 
                         "MolecularWeight", 
-                        "CommonName"), 
-                      apikey = apikey)
+                        "CommonName"
+                        ), 
+                      apikey = apikey
+                      )
 }
 }
 \seealso{

@@ -16,42 +16,30 @@
 #' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
 #' @importFrom jsonlite fromJSON 
 #' @export
-get_data_sources <- function(
-  apikey = NULL
-  ) {
+get_data_sources <- function(apikey = NULL) {
   
   .check_apikey(apikey)
   
-  header <- list(
-    "Content-Type" = "", 
-    "apikey" = apikey
-    )
+  header <- list("Content-Type" = "", "apikey" = apikey)
   
   url <- Sys.getenv(
     "GET_DATA_SOURCES_URL", 
-    unset = "https://api.rsc.org/compounds/v1/lookups/datasources"
-    )
+    unset = "https://api.rsc.org/compounds/v1/lookups/datasources")
   
   handle <- curl::new_handle()
   
-  curl::handle_setopt(
-    handle = handle, 
-    customrequest = "GET"
-    )
-  curl::handle_setheaders(
-    handle = handle, 
-    .list = header
-    )
+  curl::handle_setopt(handle = handle, customrequest = "GET")
   
-  result <- curl::curl_fetch_memory(
-    url = url, 
-    handle = handle
-    )
+  curl::handle_setheaders(handle = handle, .list = header)
+  
+  result <- curl::curl_fetch_memory(url = url, handle = handle)
 
   .check_status_code(result$status_code)
 
   content <- rawToChar(result$content)
+  
   content <- jsonlite::fromJSON(content)
   
   content
+  
 }

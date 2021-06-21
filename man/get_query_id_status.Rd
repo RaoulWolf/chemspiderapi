@@ -4,17 +4,15 @@
 \alias{get_query_id_status}
 \title{Get the status of a ChemSpider query}
 \usage{
-get_query_id_status(query_id, apikey, coerce = FALSE)
+get_query_id_status(query_id, apikey = NULL)
 }
 \arguments{
 \item{query_id}{A valid 36-character ChemSpider query ID string; see Details.}
 
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
-
-\item{coerce}{\code{logical}: should the list be coerced to a \code{data.frame}? Defaults to \code{FALSE}.}
 }
 \value{
-Returns the query status as \code{list}, \code{data.frame} or character \code{vector}.
+Returns the query status as \code{list}.
 }
 \description{
 This function is used to return the status of a query from ChemSpider before \code{get_results()} is called.

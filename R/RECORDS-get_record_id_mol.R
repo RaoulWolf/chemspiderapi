@@ -21,52 +21,33 @@
 #' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
 #' @importFrom jsonlite fromJSON
 #' @export
-get_record_id_mol <- function(
-  record_id, 
-  apikey
-  ) {
+get_record_id_mol <- function(record_id, apikey = NULL) {
   
   .check_record_id(record_id)
   
   .check_apikey(apikey)
   
-  header <- list(
-    "Content-Type" = "", 
-    "apikey" = apikey
-    )
+  header <- list("Content-Type" = "", "apikey" = apikey)
   
-  base_url <- Sys.getenv(
-    "GET_RECORD_ID_URL",
-    unset = "https://api.rsc.org/compounds/v1/records/"
-    )
+  base_url <- Sys.getenv("GET_RECORD_ID_URL",
+                         unset = "https://api.rsc.org/compounds/v1/records/")
   
-  url <- paste0(
-    base_url, 
-    record_id, 
-    "/mol"
-    )
+  url <- paste0(base_url, record_id, "/mol")
   
   handle <- curl::new_handle()
   
-  curl::handle_setopt(
-    handle = handle, 
-    customrequest = "GET"
-    )
+  curl::handle_setopt(handle = handle, customrequest = "GET")
   
-  curl::handle_setheaders(
-    handle = handle, 
-    .list = header
-    )
+  curl::handle_setheaders(handle = handle, .list = header)
   
-  result <- curl::curl_fetch_memory(
-    url = url, 
-    handle = handle
-    )
+  result <- curl::curl_fetch_memory(url = url, handle = handle)
   
   .check_status_code(result$status_code)
   
-  content <- rawToChar(raw_result$content)
+  content <- rawToChar(result$content)
+  
   content <- jsonlite::fromJSON(content)
 
   content
+  
 }

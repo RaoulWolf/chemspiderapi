@@ -4,13 +4,7 @@
 \alias{post_batch}
 \title{Post a batch of ChemSpider record IDs}
 \usage{
-post_batch(
-  record_ids,
-  fields = "all",
-  apikey,
-  simplify_formula = FALSE,
-  coerce = FALSE
-)
+post_batch(record_ids, fields = "all", apikey = NULL, simplify_formula = FALSE)
 }
 \arguments{
 \item{record_ids}{A vector of integer ChemSpider IDs.}
@@ -20,8 +14,6 @@ post_batch(
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
 
 \item{simplify_formula}{\code{logical}: Should formula strings be simplified? Defaults to \code{FALSE}.}
-
-\item{coerce}{\code{logical}: should the list be coerced to a data.frame? Defaults to \code{FALSE}.}
 }
 \value{
 A data frame (if multiple fields are returned), or a vector of adequate type if only one field is required.
@@ -37,9 +29,12 @@ If a \code{recordId} is not found, it is silently dropped.
 \examples{
 \dontrun{
 ## Post a query for the first 50 ChemSpider entries.
-recordIds <- 1:50
+record_ids <- 1:50
 apikey <- "a valid 32-character ChemSpider apikey"
-post_batch(recordIds = recordIds, apikey = apikey)
+post_batch(
+  record_ids = record_ids, 
+  apikey = apikey
+  )
 }
 }
 \seealso{

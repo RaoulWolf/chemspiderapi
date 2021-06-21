@@ -9,8 +9,7 @@ get_query_id_results(
   status,
   start = NULL,
   count = NULL,
-  apikey,
-  coerce = FALSE
+  apikey = NULL
 )
 }
 \arguments{
@@ -23,8 +22,6 @@ get_query_id_results(
 \item{count}{Optional: An integer value giving the the number of query results to retrieve. See Details.}
 
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
-
-\item{coerce}{\code{logical}: should the list be coerced to a data.frame? Defaults to \code{FALSE}.}
 }
 \value{
 A character vector indicating the status of the query; see Details.

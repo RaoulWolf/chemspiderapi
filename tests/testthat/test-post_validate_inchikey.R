@@ -146,7 +146,7 @@ test_that("post_validate_inchikey() returns a proper response.", {
       inchikey = "RYYVLZVUVIJVGH-UHFFFAOYSA-N",
       apikey = apikey
       ),
-    "logical"
+    "list"
   )
 })
 

@@ -4,14 +4,12 @@
 \alias{get_mass_batch_query_id_status}
 \title{GET the status for a mass batch query from ChemSpider}
 \usage{
-get_mass_batch_query_id_status(query_id, apikey, coerce = FALSE)
+get_mass_batch_query_id_status(query_id, apikey = NULL)
 }
 \arguments{
 \item{query_id}{A valid 36-character ChemSpider query ID obtained from \code{post_mass_batch()}.}
 
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
-
-\item{coerce}{\code{logical}: should the list be coerced to a \code{data.frame}? Defaults to \code{FALSE}.}
 }
 \value{
 Returns the query status as \code{list}, \code{data.frame} or character \code{vector}.

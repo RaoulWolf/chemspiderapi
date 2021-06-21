@@ -10,7 +10,6 @@
 #' @param count Optional: An integer value giving the the number of query results to retrieve. See Details.
 #' @param apikey A 32-character string with a valid key for ChemSpider's API services.
 #' @param status A character string indicating the query status as returned by \code{chemspiderapi::get_queryId_status()}
-#' @param coerce \code{logical}: should the list be coerced to a data.frame? Defaults to \code{FALSE}.
 #' @return A character vector indicating the status of the query; see Details.
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/get/filter/{queryId}/results}
 #' @author Raoul Wolf (\url{https://github.com/RaoulWolf/})
@@ -25,121 +24,56 @@
 #' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
 #' @importFrom jsonlite fromJSON
 #' @export
-get_query_id_results <- function(
-  query_id, 
-  status, 
-  start = NULL, 
-  count = NULL, 
-  apikey, 
-  coerce = FALSE) {
+get_query_id_results <- function(query_id, status, start = NULL, count = NULL,
+                                 apikey = NULL) {
   
   .check_query_id(query_id)
   
   .check_status(status)
   
-  .check_start_and_count(
-    start, 
-    count
-    )
+  .check_start_and_count(start, count)
   
   .check_apikey(apikey)
   
-  .check_coerce(coerce)
-  
-  header <- list(
-    "Content-Type" = "", 
-    "apikey" = apikey
-    )
+  header <- list("Content-Type" = "", "apikey" = apikey)
   
   base_url <- Sys.getenv(
     "GET_QUERY_ID_URL", 
     unset = "https://api.rsc.org/compounds/v1/filter/"
     )
   
-  if (is.null(start) && 
-      is.null(count)) {
-    url <- paste0(
-      base_url, 
-      query_id, 
-      "/results"
-      )
+  if (is.null(start) && is.null(count)) {
+    url <- paste0(base_url, query_id, "/results")
   }
   
-  if (!is.null(start) && 
-      is.null(count)) {
-    url <- paste0(
-      base_url, 
-      query_id, 
-      "/results?start=", 
-      start
-      )
+  if (!is.null(start) && is.null(count)) {
+    url <- paste0(base_url, query_id, "/results?start=", start)
   }
   
-  if (is.null(start) && 
-      !is.null(count)) {
-    url <- paste0(
-      base_url, 
-      query_id, 
-      "/results?count=", 
-      count
-      )
+  if (is.null(start) && !is.null(count)) {
+    url <- paste0(base_url, query_id, "/results?count=", count)
   }
   
-  if (!is.null(start) && 
-      !is.null(count)) {
-    url <- paste0(
-      base_url, 
-      query_id, 
-      "/results?start=", 
-      start, 
-      "&count=", 
-      count
-      )
+  if (!is.null(start) && !is.null(count)) {
+    url <- paste0(base_url, query_id, "/results?start=", start, "&count=", 
+                  count)
   }
   
   handle <- curl::new_handle()
   
-  curl::handle_setopt(
-    handle = handle, 
-    customrequest = "GET"
-    )
+  curl::handle_setopt(handle = handle, customrequest = "GET")
   
-  curl::handle_setheaders(
-    handle = handle, 
-    .list = header
-    )
+  curl::handle_setheaders(handle = handle, .list = header)
   
-  raw_result <- curl::curl_fetch_memory(
-    url = url, 
-    handle = handle
-    )
+  result <- curl::curl_fetch_memory(url = url, handle = handle)
   
-  .check_status_code(raw_result$status_code)
+  .check_status_code(result$status_code)
   
-  if ("limitedToMaxAllowed" %in% names(raw_result)) {
-    if (raw_result$limitedToMaxAllowed) {
-      warning(
-        paste(
-          paste(
-            "The query has resulted in > 10'000 entries.", 
-            "Only the first 10'000 are returned."
-            ),
-          "Consider splitting this request using \"start\" and \"count\".",
-          sep = "\n"),
-        call. = FALSE
-        )
-    }
-  }
+  .check_limited_to_max_allowed(result)
 
-  result <- rawToChar(raw_result$content)
-  result <- jsonlite::fromJSON(result)
+  content <- rawToChar(result$content)
   
-  if (coerce) {
-    result <- as.data.frame(
-      result, 
-      stringsAsFactors = FALSE
-      )
-  }
+  content <- jsonlite::fromJSON(content)
   
-  result
+  content
 }

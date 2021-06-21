@@ -4,33 +4,25 @@
 \alias{get_query_id_results_sdf}
 \title{Get a gzipped SDF file for a ChemSpider query}
 \usage{
-get_query_id_results_sdf(
-  query_id,
-  status,
-  apikey,
-  decode = TRUE,
-  simplify = FALSE
-)
+get_query_id_results_sdf(query_id, status, apikey = NULL, decode = FALSE)
 }
 \arguments{
 \item{query_id}{A valid 36-character ChemSpider \code{queryId}.}
 
-\item{status}{A character string indicating the query status as returned by \code{get_queryId_status()}.}
+\item{status}{A character string indicating the query status as returned by \code{get_query_id_status()}.}
 
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
 
-\item{decode}{\code{logical}: should the base64-encoded gzipped file be decoded? Defaults to \code{TRUE}.}
-
-\item{simplify}{\code{logical}: should the results be simplified to a vector? Defaults to \code{FALSE}.}
+\item{decode}{\code{logical}: should the base64-encoded gzipped file be decoded? Defaults to \code{FALSE}.}
 }
 \value{
 Returns a (base64-encoded) character vector
 }
 \description{
-This function is used to download a single .sdf file from ChemSpider after \code{get_queryId_status()} returns \code{"Complete"}.
+This function is used to download a single .sdf file from ChemSpider after \code{get_query_id_status()} returns \code{"Complete"}.
 }
 \details{
-Call this function after \code{get_queryId_status()} returns \code{"Complete"}.
+Call this function after \code{get_query_id_status()} returns \code{"Complete"}.
 }
 \examples{
 \dontrun{

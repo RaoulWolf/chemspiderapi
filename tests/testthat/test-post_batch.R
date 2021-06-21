@@ -121,7 +121,7 @@ test_that("get_datasources() returns a proper response.", {
 
 test_that("get_datasources() returns a proper response.", {
   expect_type(
-    chemspiderapi::post_batch(record_ids = c(2424L, 2345L), apikey = "abcdefghijklmnopqrstuvqxyz123456", simplify_formula = TRUE, coerce = TRUE),
+    chemspiderapi::post_batch(record_ids = c(2424L, 2345L), apikey = "abcdefghijklmnopqrstuvqxyz123456", simplify_formula = TRUE),
     "list"
   )
 })

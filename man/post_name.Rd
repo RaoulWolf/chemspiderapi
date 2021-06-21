@@ -8,9 +8,7 @@ post_name(
   name,
   order_by = "recordId",
   order_direction = "ascending",
-  apikey,
-  coerce = FALSE,
-  simplify = FALSE
+  apikey = NULL
 )
 }
 \arguments{
@@ -21,10 +19,6 @@ post_name(
 \item{order_direction}{A character string indicating which in which direction the results should be arranged (NOT case sensitive); see Details.}
 
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
-
-\item{coerce}{\code{logical}: should the list be coerced to a data.frame? Defaults to \code{FALSE}.}
-
-\item{simplify}{\code{logical}: should the results be simplified to a vector? Defaults to \code{FALSE}.}
 }
 \value{
 Returns the queryId string as (named) character vector.

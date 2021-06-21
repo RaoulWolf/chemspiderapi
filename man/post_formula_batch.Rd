@@ -9,8 +9,7 @@ post_formula_batch(
   data_sources = NULL,
   order_by = "recordId",
   order_direction = "ascending",
-  apikey,
-  coerce = FALSE
+  apikey = NULL
 )
 }
 \arguments{
@@ -23,8 +22,6 @@ post_formula_batch(
 \item{order_direction}{A character string indicating in which direction the results should be ordered; see Details.}
 
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
-
-\item{coerce}{\code{logical}: should the list be coerced to a data.frame? Defaults to \code{FALSE}.}
 }
 \value{
 Returns the queryId string as (named) character vector.

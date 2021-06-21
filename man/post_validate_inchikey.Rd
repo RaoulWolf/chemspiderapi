@@ -4,7 +4,7 @@
 \alias{post_validate_inchikey}
 \title{Validate an InChIKey}
 \usage{
-post_validate_inchikey(inchikey, apikey)
+post_validate_inchikey(inchikey, apikey = NULL)
 }
 \arguments{
 \item{inchikey}{A 25- or 27-character InChIKey to be validated.}
