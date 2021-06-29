@@ -4,7 +4,7 @@
 \alias{post_batch}
 \title{Post a batch of ChemSpider record IDs}
 \usage{
-post_batch(record_ids, fields = "all", apikey = NULL, simplify_formula = FALSE)
+post_batch(record_ids, fields = "all", apikey = NULL)
 }
 \arguments{
 \item{record_ids}{A vector of integer ChemSpider IDs.}
@@ -12,11 +12,9 @@ post_batch(record_ids, fields = "all", apikey = NULL, simplify_formula = FALSE)
 \item{fields}{A character string indicating which fields to return; see Details.}
 
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
-
-\item{simplify_formula}{\code{logical}: Should formula strings be simplified? Defaults to \code{FALSE}.}
 }
 \value{
-A data frame (if multiple fields are returned), or a vector of adequate type if only one field is required.
+A list with the specified fields.
 }
 \description{
 Post a batch query of up to 100 ChemSpider record IDs.

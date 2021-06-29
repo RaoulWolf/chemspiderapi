@@ -5,7 +5,7 @@
 #' Call this endpoint with \code{recordId} as an integer. To save the MOL/SDF file, see the vignette "Saving MOL Files of Chemicals".
 #' @param record_id A valid (integer) ChemSpider ID.
 #' @param apikey A 32-character string with a valid key for ChemSpider's API services.
-#' @return A character string containing the (human-readable) .MOL file.
+#' @return A list containing the (human-readable) .MOL file.
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/get/records/{recordId}/mol} 
 #' @author Raoul Wolf (\url{https://github.com/RaoulWolf/})
 #' @examples

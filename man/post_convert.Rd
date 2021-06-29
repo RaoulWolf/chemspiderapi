@@ -16,7 +16,7 @@ post_convert(input, input_format, output_format, apikey = NULL)
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
 }
 \value{
-A list with one character string with the converted identifier
+A list with one character string containing the converted identifier
 }
 \description{
 Functionality to convert between different chemical identifier formats: InChI, InChIKey, Mol, and SMILES.
@@ -32,12 +32,9 @@ The identifier names are NOT case sensitive!
 input <- "InChI=1S/C8H10N4O2/c1-10-4-9-6-5(10)7(13)12(3)8(14)11(6)2/h4H,1-3H3"
 input_format <- "InChI"
 output_format <- "SMILES"
-post_convert(
-  input = input, 
-  input_format = input_format, 
-  output_format = output_format, 
-  apikey
-  )
+apikey <- "a valid API key"
+post_convert(input = input, input_format = input_format, 
+             output_format = output_format, apikey = apikey)
 }
 }
 \seealso{

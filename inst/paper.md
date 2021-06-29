@@ -10,10 +10,12 @@ tags:
 authors:
   - name: Raoul Wolf
     orcid: 0000-0001-5971-8525
-    affiliation: 1
+    affiliation: 2
 affiliations:
  - name: Section for Ecotoxicology and Risk Assessment, Norwegian Institute for Water Research (NIVA)
    index: 1
+ - name: Section for Sustainable Geosolutions, Norwegian Geotechnical Institute (NGI)
+   index: 2
 date: 23 July 2019
 bibliography: paper.bib
 ---
@@ -36,13 +38,10 @@ Instead, separate short vignettes provide examples on how to handle those issues
 
 ``chemspiderapi`` is fully capable of being deployed in functional programming and comes with an extensive suite of sanity checking functions that verify input values *before* running API queries. This prevents unnecessary queries because the wrong input was used, or the API key was forgotten. 
 
-As such, ``chemspiderapi`` is a powerful addition to etsablished packages like ``rpubchem`` [@guha:2016] and ``webchem`` [@szocs:2015], which provide API functionalities for other online databases.
+As such, ``chemspiderapi`` is a powerful addition to established packages like ``rpubchem`` [@guha:2016] and ``webchem`` [@szocs:2015], which provide API functionalities for other online databases.
 
 # Acknowledgements
 
-``chemspiderapi`` was created in conjunction with [NIVA's Computational Toxicology Program (NCTP)](https://www.niva.no/en/projectweb/nctp) and funded by [The Research Council of Norway
-(RCN)](https://www.forskningsradet.no/en/Home_page/1177315753906), project 268294: [Cumulative Hazard and Risk Assessment of Complex
-Mixtures and Multiple Stressors
-(MixRisk)](https://www.forskningsradet.no/prosjektbanken/#/project/NFR/268294/Sprak=en).
+``chemspiderapi`` was created at the [Norwegian Institute for Water Research (NIVA)](https://www.niva.no/en) at NIVA's [Section for Ecotoxicology and Risk Assessment](https://www.niva.no/en/research/ecotoxicology_and_risk_assessment) and funded by [the Research Council of Norway (RCN)](https://www.forskningsradet.no/en/Home_page/1177315753906), project 268294: [Cumulative Hazard and Risk Assessment of Complex Mixtures and Multiple Stressors (MixRisk)](https://www.forskningsradet.no/prosjektbanken/#/project/NFR/268294/Sprak=en).
 
 # References

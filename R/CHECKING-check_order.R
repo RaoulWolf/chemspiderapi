@@ -1,107 +1,46 @@
-.check_order <- function(
-  orderBy, 
-  orderDirection
-  ) {
+.check_order <- function(order_by, order_direction) {
   
-  if (
-    !is.null(
-      x = orderBy
-      ) && 
-    length(
-      x = orderBy
-      ) > 1L
-    ) {
-    stop(
-      "Only a single \"orderBy\" entry is supported.", 
-      call. = FALSE
-      )
+  if (!is.null(order_by) && length(order_by) > 1) {
+    
+    stop("Only a single \"order_by\" entry is supported.", call. = FALSE)
+    
   }
   
-  if (
-    !is.null(
-      x = orderDirection
-      ) && 
-    length(
-      x = orderDirection
-      ) > 1L
-    ) {
-    stop(
-      "Only a single \"orderDirection\" entry is supported.", 
-      call. = FALSE
-      )
+  if (!is.null(order_direction) && length(order_direction) > 1) {
+    
+    stop("Only a single \"order_direction\" entry is supported.", 
+         call. = FALSE)
+    
   }
   
-  if (
-    !is.null(
-      x = orderBy
-      ) && 
-    !is.character(
-      x = orderBy
-      )
-    ) {
-    stop(
-      "Please provide a valid input for \"orderBy\".", 
-      call. = FALSE
-      )
+  if (!is.null(order_by) && !is.character(order_by)) {
+    
+    stop("Please provide a valid input for \"order_by\".", call. = FALSE)
+    
   }
 
-  if (
-    !is.null(
-      x = orderDirection
-      ) && 
-    !is.character(
-      x = orderDirection
-      )
-    ) {
-    stop(
-      "Please provide a valid input for \"orderDirection\".", 
-      call. = FALSE
-      )
+  if (!is.null(order_direction) && !is.character(order_direction)) {
+    
+    stop("Please provide a valid input for \"order_direction\".", 
+         call. = FALSE)
+    
   }
   
-  if (
-    !is.null(
-      x = orderBy
-      ) && 
-    !any(
-      tolower(
-        x = orderBy
-        ) %in%
-      c(
-        "recordid", 
-        "massdefect", 
-        "molecularweight", 
-        "referencecount", 
-        "datasourcecount", 
-        "pubmedcount", 
-        "rsccount"
-        )
-      )
-    ) {
-    stop(
-      "Please provide a valid input for \"orderBy\".", 
-      call. = FALSE
-      )
+  if (!is.null(order_by) && !any(tolower(order_by) %in% 
+                                 c("recordid", "massdefect", "molecularweight",
+                                   "referencecount", "datasourcecount", 
+                                   "pubmedcount", "rsccount"))) {
+    
+    stop("Please provide a valid input for \"order_by\".", call. = FALSE)
+    
   }
   
-  if (
-    !is.null(
-      x = orderDirection
-      ) && 
-    !any(
-      tolower(
-        x = orderDirection
-        ) %in%
-      c(
-        "ascending", 
-        "descending"
-        )
-      )
-    ) {
-    stop(
-      "Please use either \"ascending\" or \"descending\" as input for \"orderDirection\".", 
-      call. = FALSE
-      )
+  if (!is.null(order_direction) && !any(tolower(order_direction) %in%
+                                        c("ascending", "descending"))) {
+    
+    stop(paste("Please use either \"ascending\" or \"descending\" as",
+               "input for \"order_direction\"."), call. = FALSE)
+    
   }
   
 }

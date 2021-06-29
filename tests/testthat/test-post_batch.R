@@ -82,7 +82,7 @@ test_that("post_batch() fails if a non 32-character length API key is provided."
 
 test_that("post_batch() fails if \"coerce\" is not logical.", {
   expect_error(
-    post_batch(record_ids = c(2424L, 2345L), fields = "all", apikey = "abcdefghijklmnopqrstuvqxyz123456", coerce = "what")
+    post_batch(record_ids = c(2424L, 2345L), fields = "all", apikey = "abcdefghijklmnopqrstuvqxyz123456")
   )
 })
 
@@ -121,7 +121,7 @@ test_that("get_datasources() returns a proper response.", {
 
 test_that("get_datasources() returns a proper response.", {
   expect_type(
-    chemspiderapi::post_batch(record_ids = c(2424L, 2345L), apikey = "abcdefghijklmnopqrstuvqxyz123456", simplify_formula = TRUE),
+    chemspiderapi::post_batch(record_ids = c(2424L, 2345L), apikey = "abcdefghijklmnopqrstuvqxyz123456"),
     "list"
   )
 })

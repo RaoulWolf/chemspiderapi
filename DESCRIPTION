@@ -16,6 +16,7 @@ Suggests:
     knitr, 
     magick, 
     memoise, 
+    png,
     ratelimitr, 
     rmarkdown, 
     testthat,

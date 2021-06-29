@@ -10,7 +10,7 @@ get_data_sources(apikey = NULL)
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
 }
 \value{
-A \code{list} of characters.
+A list of all external data sources.
 }
 \description{
 Returns all external ChemSpider data sources.
@@ -25,7 +25,8 @@ This function is most useful for narrowing down \code{data_sources} in other che
 \examples{
 \dontrun{
 ## Get external data sources of ChemSpider
-get_data_sources(apikey)
+apikey <- "A valid API key"
+get_data_sources(apikey = apikey)
 }
 }
 \seealso{

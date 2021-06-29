@@ -2,44 +2,44 @@ library(chemspiderapi)
 
 context("check_order")
 
-test_that("check_order() fails if more than one orderBy is provided.", {
+test_that("check_order() fails if more than one order_by is provided.", {
   expect_error(
-    .check_order(orderBy = c("recordid", "massdefect"), orderDirection = NULL)
+    .check_order(order_by = c("recordid", "massdefect"), order_direction = NULL)
   )
 })
 
-test_that("check_order() fails if a false orderBy is provided.", {
+test_that("check_order() fails if a false order_by is provided.", {
   expect_error(
-    .check_order(orderBy = "thewrongthing", orderDirection = NULL)
+    .check_order(order_by = "thewrongthing", order_direction = NULL)
   )
 })
 
-test_that("check_order() fails if a non-character orderBy is provided.", {
+test_that("check_order() fails if a non-character order_by is provided.", {
   expect_error(
-    .check_order(orderBy = 123, orderDirection = NULL)
+    .check_order(order_by = 123, order_direction = NULL)
   )
 })
 
-test_that("check_order() fails if more than one orderDirection is provided.", {
+test_that("check_order() fails if more than one order_direction is provided.", {
   expect_error(
-    .check_order(orderBy = NULL, orderDirection = c("ascending", "descending"))
+    .check_order(order_by = NULL, order_direction = c("ascending", "descending"))
   )
 })
 
-test_that("check_order() fails if a non-character orderDirection is provided.", {
+test_that("check_order() fails if a non-character order_direction is provided.", {
   expect_error(
-    .check_order(orderBy = NULL, orderDirection = 123)
+    .check_order(order_by = NULL, order_direction = 123)
   )
 })
 
-test_that("check_order() fails if a false orderDirection is provided.", {
+test_that("check_order() fails if a false order_direction is provided.", {
   expect_error(
-    .check_order(orderBy = NULL, orderDirection = "thewrongthing")
+    .check_order(order_by = NULL, order_direction = "thewrongthing")
   )
 })
 
 test_that("check_order() remains silent when the correct order is provided.", {
   expect_silent(
-    .check_order(orderBy = "recordId", orderDirection = "descending")
+    .check_order(order_by = "recordId", order_direction = "descending")
   )
 })

@@ -188,8 +188,7 @@ test_that("returns a proper response.", {
   
   expect_type(
     get_record_id_image(record_id = 2424L,
-                       apikey = "abcdefghijklmnopqrstuvqxyz123456",
-                       decode = TRUE),
+                       apikey = "abcdefghijklmnopqrstuvqxyz123456"),
     "list"
   )
   

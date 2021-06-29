@@ -22,7 +22,7 @@ apikey <- keyring::key_get(service = "ChemSpider API key", username = Sys.getenv
 We can now get the MOL file for caffeine, which has a ChemSpider ID of 2424.
 
 ```{r,eval=FALSE}
-caffeine_mol <- get_recordId_mol(recordId = 2424L, apikey = apikey)
+caffeine_mol <- get_record_id_mol(record_id = 2424L, apikey = apikey)
 
 caffeine_mol
 
@@ -48,22 +48,22 @@ close(con)
 
 ### Saving SDF files
 
-Similar to the above procedure, bulk files SDF files containing multiple MOL entries can be stored. SDF files would be the result of queries by, for example, `post_mass()`. Accordingly, only the file connection needs to be changed. The below example is looking at chemicals with a mass and range similar to caffeine. First the queryId is obtained.
+Similar to the above procedure, bulk files SDF files containing multiple MOL entries can be stored. SDF files would be the result of queries by, for example, `post_mass()`. Accordingly, only the file connection needs to be changed. The below example is looking at chemicals with a mass and range similar to caffeine. First the query_id is obtained.
 
 ```{r,eval=FALSE}
-queryId <- post_mass(mass = 194, range = 0.002, apikey = apikey)
+query_id <- post_mass(mass = 194, range = 0.002, apikey = apikey)
 ```
 
 Next, the status is controlled.
 ```{r,eval=FALSE}
-status <- get_queryId_status(queryId = queryId, count = FALSE, message = FALSE, apikey = apikey)
+status <- get_query_id_status(query_id = query_id$queryId, apikey = apikey)
 
 status
 ```
 
 The SDF file can now be retrieved. Note that per default, the SDF file is decompressed.
 ```{r,eval=FALSE}
-caffeine_sdf <- get_queryId_results_sdf(queryId = queryId, status = status, apikey = apikey)
+caffeine_sdf <- get_query_id_results_sdf(query_id = query_id$queryId, status = status$status, apikey = apikey)
 
 head(caffeine_sdf)
 

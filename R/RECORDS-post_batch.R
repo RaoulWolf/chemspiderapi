@@ -6,8 +6,7 @@
 #' @param record_ids A vector of integer ChemSpider IDs.
 #' @param fields A character string indicating which fields to return; see Details.
 #' @param apikey A 32-character string with a valid key for ChemSpider's API services.
-#' @param simplify_formula \code{logical}: Should formula strings be simplified? Defaults to \code{FALSE}.
-#' @return A data frame (if multiple fields are returned), or a vector of adequate type if only one field is required.
+#' @return A list with the specified fields.
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/post/records/batch}
 #' @author Raoul Wolf (\url{https://github.com/RaoulWolf/})
 #' @examples
@@ -23,8 +22,7 @@
 #' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
 #' @importFrom jsonlite fromJSON toJSON
 #' @export
-post_batch <- function(record_ids, fields = "all", apikey = NULL, 
-                       simplify_formula = FALSE) {
+post_batch <- function(record_ids, fields = "all", apikey = NULL) {
   
   .check_record_ids(record_ids)
   
@@ -77,13 +75,6 @@ post_batch <- function(record_ids, fields = "all", apikey = NULL,
   content <- rawToChar(result$content)
   
   content <- jsonlite::fromJSON(content)
-  
-  if (simplify_formula && "formula" %in% names(content)) {
-    
-    result$formula <- gsub(pattern = "[[:punct:]]", replacement = "", 
-                           result$formula)
-    
-  }
   
   content
   

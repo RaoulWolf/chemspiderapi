@@ -1,9 +1,9 @@
 #' @title Validate an InChIKey
 #' @description Functionality to check the validity of an InChIKey.
-#' @details Before this functions performs an API query, it runs quality checking as lined out at \url{https://www.inchi-trust.org/technical-faq/#13.1}. If an InChIKey is ruled out based on these criteria, it returns \code{FALSE} with a warning message.
+#' @details Before this functions performs an API query, it runs quality checking as lined out at \url{https://www.inchi-trust.org/technical-faq/#13.1}. If an InChIKey is ruled out based on these criteria, the function will not perform an API query.
 #' @param inchikey A 25- or 27-character InChIKey to be validated.
 #' @param apikey A 32-character string with a valid key for ChemSpider's API services.
-#' @return A logical indicating the validity of the InChIKey
+#' @return A list with a logical indicating the validity of the InChIKey.
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/post/tools/validate/inchikey}
 #' @author Raoul Wolf (\url{https://github.com/RaoulWolf/})
 #' @examples \dontrun{

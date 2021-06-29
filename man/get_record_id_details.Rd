@@ -4,12 +4,7 @@
 \alias{get_record_id_details}
 \title{Get details for a ChemSpider record}
 \usage{
-get_record_id_details(
-  record_id,
-  fields = "all",
-  apikey = NULL,
-  simplify_formula = FALSE
-)
+get_record_id_details(record_id, fields = "all", apikey = NULL)
 }
 \arguments{
 \item{record_id}{A valid (integer) ChemSpider ID.}
@@ -17,11 +12,9 @@ get_record_id_details(
 \item{fields}{Either a single character string, a character vector, or a character list stating which fields to return. Alternatively, \code{"all"} returns all possible \code{fields}. \code{fields} is NOT case sensitive, but see details for a list of possible entries.}
 
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
-
-\item{simplify_formula}{\code{logical}: Should formula strings be simplified? Defaults to \code{FALSE}.}
 }
 \value{
-A \code{data.frame} if multiple columns are returned, or a vector of the appropriate type if only one \code{field} is returned.
+A list containing the specified fields.
 }
 \description{
 This function returns record details from ChemSpider.
@@ -37,14 +30,9 @@ The available fields are: SMILES, Formula, InChI, InChIKey, StdInChI, StdInChIKe
 record_id <- 2424L
 apikey <- "A valid 32-character Chemspider API key"
 get_record_id_details(record_id = record_id, 
-                      fields = c(
-                        "SMILES", 
-                        "Formula", 
-                        "MolecularWeight", 
-                        "CommonName"
-                        ), 
-                      apikey = apikey
-                      )
+                      fields = c("SMILES", "Formula", "MolecularWeight", 
+                                 "CommonName"), 
+                      apikey = apikey)
 }
 }
 \seealso{

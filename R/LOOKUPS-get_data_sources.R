@@ -6,12 +6,13 @@
 #' \cr
 #' This function is most useful for narrowing down \code{data_sources} in other chemspiderapi functions, for example \code{get_record_id_external_references()}.
 #' @param apikey A 32-character string with a valid key for ChemSpider's API services.
-#' @return A \code{list} of characters.
+#' @return A list of all external data sources.
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/get/lookups/datasources}
 #' @author Raoul Wolf (\url{https://github.com/RaoulWolf/})
 #' @examples \dontrun{
 #' ## Get external data sources of ChemSpider
-#' get_data_sources(apikey)
+#' apikey <- "A valid API key"
+#' get_data_sources(apikey = apikey)
 #' }
 #' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
 #' @importFrom jsonlite fromJSON 

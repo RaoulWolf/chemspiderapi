@@ -3,23 +3,19 @@
 #' @details Returns a numeric (double) array. To save the picture, see the vignette "Saving PNG Images of Chemicals".
 #' @param record_id A valid (integer) ChemSpider ID.
 #' @param apikey A 32-character string with a valid key for ChemSpider's API services.
-#' @param decode \code{logical}: should the base64-encoded image be decoded into a raw vector? Defaults to \code{FALSE}.
-#' @return A numeric array.
+#' @return A list containing the raw image.
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/get/records/{recordId}/image} 
 #' @author Raoul Wolf (\url{https://github.com/RaoulWolf/})
 #' @examples \dontrun{
 #' ## Get the PNG image for caffeine
 #' record_id <- 2424L
-#' apikey <- "a_valid_ChemSpider_API_key"
-#' get_record_id_image(
-#'   record_id = record_id, 
-#'   apikey = apikey
-#'   )
+#' apikey <- "A valid ChemSpider API key"
+#' get_record_id_image(record_id = record_id, apikey = apikey)
 #' }
 #' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
 #' @importFrom jsonlite base64_dec fromJSON
 #' @export 
-get_record_id_image <- function(record_id, apikey = NULL, decode = FALSE) {
+get_record_id_image <- function(record_id, apikey = NULL) {
   
   .check_record_id(record_id)
   
@@ -46,11 +42,6 @@ get_record_id_image <- function(record_id, apikey = NULL, decode = FALSE) {
   
   content <- jsonlite::fromJSON(content)
   
-  if (decode) {
-    
-    content$image <- jsonlite::base64_dec(content$image)
-    
-  }
-  
   content
+  
 }

@@ -7,7 +7,7 @@
 #' @param input_format A character string indicating which format the input has. Can be one of the following: \code{InChI}, \code{InChIKey}, \code{Mol}, or \code{SMILES}. See Details for possible conversions.
 #' @param output_format A character string indicating which type of output is desired. Can be one of the following: \code{InChI}, \code{InChIKey}, \code{Mol}, or \code{SMILES}. See Details for possible conversions.
 #' @param apikey A 32-character string with a valid key for ChemSpider's API services.
-#' @return A list with one character string with the converted identifier
+#' @return A list with one character string containing the converted identifier
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/post/tools/convert}
 #' @author Raoul Wolf (\url{https://github.com/RaoulWolf/})
 #' @examples \dontrun{
@@ -15,12 +15,9 @@
 #' input <- "InChI=1S/C8H10N4O2/c1-10-4-9-6-5(10)7(13)12(3)8(14)11(6)2/h4H,1-3H3"
 #' input_format <- "InChI"
 #' output_format <- "SMILES"
-#' post_convert(
-#'   input = input, 
-#'   input_format = input_format, 
-#'   output_format = output_format, 
-#'   apikey
-#'   )
+#' apikey <- "a valid API key"
+#' post_convert(input = input, input_format = input_format, 
+#'              output_format = output_format, apikey = apikey)
 #' }
 #' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
 #' @importFrom jsonlite fromJSON toJSON

@@ -7,18 +7,18 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-ChemSpider's API services offers the functionality to download image files of the chemicals. This functionality is implemented in the `get_recordId_image()` function. These image files can also be stored straight from R.
+ChemSpider's API services offers the functionality to download image files of the chemicals. This functionality is implemented in the `get_record_id_image()` function. These image files can also be stored straight from R. Here we demonstrate the functionality with the 
 
 
-### Installing the required `magick` package
+## Installing the required `{magick}` and `{png}` packages
 
-Before downloading an example image for caffeine, the `magick` package needs to be installed.
+Before downloading an example image for caffeine, the `{magick}` and `{png}` packages needs to be installed.
 ```{r,eval=FALSE}
-install.packages("magick")
+install.packages(c("magick", "png"))
 ```
 
 
-### Downloading the PNG image of caffeine
+## Downloading the PNG image of caffeine
 
 First, the `chemspiderapi` package needs to be loaded and the API key needs to be retrieved.
 ```{r,eval=FALSE}
@@ -27,30 +27,44 @@ library(chemspiderapi)
 apikey <- keyring::key_get(service = "ChemSpider API key", username = Sys.getenv("USERNAME"))
 ```
 
-Now, the "raw" image file (ChemSpider ID 2424) is downloaded using `get_recordId_image()`.
+Now, the "raw" image file (ChemSpider ID 2424) is downloaded using `get_record_id_image()`. The raw image is then decoded using the `jsonlite::base64_dec()` function. 
 ```{r,eval=FALSE}
-caffeine_image_raw <- get_recordId_image(recordId = 2424L, apikey = apikey)
+caffeine_image_raw <- get_record_id_image(record_id = 2424L, apikey = apikey)
+
+library(jsonlite)
+
+caffeine_image <- base64_dec(caffeine_image_raw$image)
 ```
 
-Next, the image needs to be read in using the `magick::image_read()` functionality.
+### Saving the image using the `{magick}` package
+
+The decoded image needs to be read in using the `magick::image_read()` functionality.
 ```{r,eval=FALSE}
 library(magick)
 
-caffeine_png <- image_read(caffeine_image_raw)
+caffeine_png <- image_read(caffeine_image)
 ```
-
-
-### Viewing the image
 
 The loaded image can be viewed by calling the object. 
 ```{r,eval=FALSE}
 caffeine_png
 ```
 
-
-### Saving the PNG image
-
 Saving the image is possible using the `magick::image_write()` function.
 ```{r,eval=FALSE}
 image_write(caffeine_png, path = "caffeine.png")
+```
+
+### Saving the image using the `{png}` package
+
+The decoded image needs to be read in using the `png::readPNG()` functionality.
+```{r,eval=FALSE}
+library(png)
+
+caffeine_png <- readPNG(caffeine_image)
+```
+
+Saving the image is possible using the `png::writePNG()` function.
+```{r,eval=FALSE}
+writePNG(caffeine_png, target = "caffeine.png")
 ```

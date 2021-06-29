@@ -12,13 +12,13 @@ post_validate_inchikey(inchikey, apikey = NULL)
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
 }
 \value{
-A logical indicating the validity of the InChIKey
+A list with a logical indicating the validity of the InChIKey.
 }
 \description{
 Functionality to check the validity of an InChIKey.
 }
 \details{
-Before this functions performs an API query, it runs quality checking as lined out at \url{https://www.inchi-trust.org/technical-faq/#13.1}. If an InChIKey is ruled out based on these criteria, it returns \code{FALSE} with a warning message.
+Before this functions performs an API query, it runs quality checking as lined out at \url{https://www.inchi-trust.org/technical-faq/#13.1}. If an InChIKey is ruled out based on these criteria, the function will not perform an API query.
 }
 \examples{
 \dontrun{

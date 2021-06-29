@@ -100,7 +100,7 @@ If `{curl}` or `{jsonlite}` are missing, (almost) all functions of
 
 ## Coverage
 
-As of 2021-06-21, the following functionalities are implemented and
+As of 2021-06-29, the following functionalities are implemented and
 fully annotated (100%):
 
 **FILTERING**
@@ -183,7 +183,7 @@ queries, *e.g.*, `get_record_id_details()`.
 
 ## Vignettes
 
-As of 2021-06-21, the following five vignettes are available:
+As of 2021-06-29, the following five vignettes are available:
 
   - **Storing and Accessing API Keys**: A basic example on how to safely
     store and retrieve API keys using the `keyring` package.
@@ -202,7 +202,7 @@ As of 2021-06-21, the following five vignettes are available:
 
   - **Saving PNG Images**: Examples on how to save PNG files, as
     returned by `get_record_id_image()`, using functionalities of the
-    `magick` package.
+    `{magick}` or `{png}` packages.
 
 ## Funding
 

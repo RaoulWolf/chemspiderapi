@@ -12,7 +12,7 @@ get_record_id_mol(record_id, apikey = NULL)
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
 }
 \value{
-A character string containing the (human-readable) .MOL file.
+A list containing the (human-readable) .MOL file.
 }
 \description{
 This function is used to download a single .MOL file from ChemSpider.

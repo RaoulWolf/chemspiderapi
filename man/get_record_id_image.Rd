@@ -4,17 +4,15 @@
 \alias{get_record_id_image}
 \title{Get a PNG image of a ChemSpider record}
 \usage{
-get_record_id_image(record_id, apikey = NULL, decode = FALSE)
+get_record_id_image(record_id, apikey = NULL)
 }
 \arguments{
 \item{record_id}{A valid (integer) ChemSpider ID.}
 
 \item{apikey}{A 32-character string with a valid key for ChemSpider's API services.}
-
-\item{decode}{\code{logical}: should the base64-encoded image be decoded into a raw vector? Defaults to \code{FALSE}.}
 }
 \value{
-A numeric array.
+A list containing the raw image.
 }
 \description{
 This function is used to obtain a 250 x 250 pixel PNG image file of a ChemSpider record ID, e.g., after \code{chemspiderapi::get_query_id_results()}.
@@ -26,11 +24,8 @@ Returns a numeric (double) array. To save the picture, see the vignette "Saving 
 \dontrun{
 ## Get the PNG image for caffeine
 record_id <- 2424L
-apikey <- "a_valid_ChemSpider_API_key"
-get_record_id_image(
-  record_id = record_id, 
-  apikey = apikey
-  )
+apikey <- "A valid ChemSpider API key"
+get_record_id_image(record_id = record_id, apikey = apikey)
 }
 }
 \seealso{

@@ -18,7 +18,7 @@ Most users of ChemSpider's API services will have to apply rate limiting conditi
 
 ## Installing necessary packages
 
-To run both examples, the `ratelimitr` package and the `tidyverse` package collection need to be installed. The necessary API key is retrieved from a stored keyring using the `keyring` package; see separate vignette "Storing and Accessing API Keys" for instructions and recomendations on how to handle system-wide keys.
+To run both examples, the `ratelimitr` package and the `tidyverse` package collection need to be installed. The necessary API key is retrieved from a stored keyring using the `keyring` package; see separate vignette "Storing and Accessing API Keys" for instructions and recommendations on how to handle system-wide keys.
 
 ```{r,eval=FALSE}
 install.packages(c("ratelimitr", "tidyverse"))
@@ -60,21 +60,21 @@ sleepy_post_inchikey <- function(...) {
 }
 
 ## sapply() can be used in this context because the result of each iteration is a single vector.
-demo_chemicals$queryId <- sapply(X = demo_chemicals$InChIKey, FUN = function(x) sleepy_post_inchikey(inchikey = x, apikey = apikey))
+demo_chemicals$query_id <- sapply(X = demo_chemicals$InChIKey, FUN = function(x) sleepy_post_inchikey(inchikey = x, apikey = apikey))
 
 demo_chemicals
 ```
 
 We can now check the status of query with a rate-limited `get_queryId_status()` function.
 ```{r,eval=FALSE}
-sleepy_get_queryId_status <- function(...) {
-  result <- get_queryId_status(...)
+sleepy_get_query_id_status <- function(...) {
+  result <- get_query_id_status(...)
   Sys.sleep(4)
   result
 }
 
 ## As the result of the query is an array, lapply() is used.
-demo_chemicals$status <- lapply(X = demo_chemicals$queryId, FUN = function(x) sleepy_get_queryId_status(queryId = x, apikey = apikey))
+demo_chemicals$status <- lapply(X = demo_chemicals$query_id, FUN = function(x) sleepy_get_query_id_status(query_id = x, apikey = apikey))
 
 demo_chemicals
 ```

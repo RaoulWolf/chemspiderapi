@@ -6,8 +6,7 @@
 #' @param record_id A valid (integer) ChemSpider ID.
 #' @param fields Either a single character string, a character vector, or a character list stating which fields to return. Alternatively, \code{"all"} returns all possible \code{fields}. \code{fields} is NOT case sensitive, but see details for a list of possible entries.
 #' @param apikey A 32-character string with a valid key for ChemSpider's API services.
-#' @param simplify_formula \code{logical}: Should formula strings be simplified? Defaults to \code{FALSE}.
-#' @return A \code{data.frame} if multiple columns are returned, or a vector of the appropriate type if only one \code{field} is returned.
+#' @return A list containing the specified fields.
 #' @seealso \url{https://developer.rsc.org/compounds-v1/apis/get/records/{recordId}/details}
 #' @author Raoul Wolf (\url{https://github.com/RaoulWolf/})
 #' @examples \dontrun{
@@ -15,20 +14,14 @@
 #' record_id <- 2424L
 #' apikey <- "A valid 32-character Chemspider API key"
 #' get_record_id_details(record_id = record_id, 
-#'                       fields = c(
-#'                         "SMILES", 
-#'                         "Formula", 
-#'                         "MolecularWeight", 
-#'                         "CommonName"
-#'                         ), 
-#'                       apikey = apikey
-#'                       )
+#'                       fields = c("SMILES", "Formula", "MolecularWeight", 
+#'                                  "CommonName"), 
+#'                       apikey = apikey)
 #' }
 #' @importFrom curl curl_fetch_memory handle_setheaders handle_setopt new_handle
 #' @importFrom jsonlite fromJSON
 #' @export
-get_record_id_details <- function(record_id, fields = "all", apikey = NULL, 
-                                  simplify_formula = FALSE) {
+get_record_id_details <- function(record_id, fields = "all", apikey = NULL) {
   
   .check_record_id(record_id)
 
@@ -78,13 +71,6 @@ get_record_id_details <- function(record_id, fields = "all", apikey = NULL,
   
   content <- jsonlite::fromJSON(content)
 
-  if (simplify_formula && "formula" %in% names(content)) {
-    
-    result$formula <- gsub(pattern = "[[:punct:]]", replacement = "", 
-                           result$formula)
-    
-  }
-  
   content
   
 }

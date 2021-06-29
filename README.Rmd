@@ -155,7 +155,7 @@ As of `r Sys.Date()`, the following five vignettes are available:
 
 * **Saving MOL and SDF Files**: Examples on how to save MOL and SDF files as returned by `get_record_id_mol()` and `get_query_id_results_sdf()`.
 
-* **Saving PNG Images**: Examples on how to save PNG files, as returned by `get_record_id_image()`, using functionalities of the `magick` package.
+* **Saving PNG Images**: Examples on how to save PNG files, as returned by `get_record_id_image()`, using functionalities of the `{magick}` or `{png}` packages.
 
 ## Funding
 
